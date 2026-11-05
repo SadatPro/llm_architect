@@ -1,0 +1,4278 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GenAI, ML &amp; Deep Learning Interactive Roadmap Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"SF Mono"', 'Menlo', 'Consolas', 'monospace']
+          },
+          colors: {
+            apple: {
+              blue: '#0071e3',
+              indigo: '#5856d6',
+              purple: '#af52de',
+              pink: '#ff2d55',
+              orange: '#ff9500',
+              yellow: '#ffcc00',
+              green: '#34c759',
+              teal: '#00c7be',
+              canvas: '#fbfbfd',
+              surface: '#ffffff',
+              subtle: '#f5f5f7'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+      margin: 0;
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif !important;
+      background-color: #fbfbfd;
+      color: #1d1d1f;
+      overflow-x: hidden;
+      line-height: 1.5;
+      letter-spacing: -0.011em;
+    }
+    /* Ambient Apple Mesh Glow Orbs for Translucent Frosted Refraction */
+    .ambient-orb {
+      position: fixed;
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(80px);
+      opacity: 0.65;
+    }
+    .orb-1 {
+      top: -12%;
+      left: -6%;
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(0, 113, 227, 0.15) 0%, rgba(94, 92, 230, 0.08) 50%, transparent 72%);
+    }
+    .orb-2 {
+      bottom: -15%;
+      right: -8%;
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(255, 149, 0, 0.12) 0%, rgba(255, 45, 85, 0.06) 50%, transparent 72%);
+    }
+    .orb-3 {
+      top: 45%;
+      left: 15%;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(52, 199, 89, 0.09) 0%, rgba(0, 199, 190, 0.04) 50%, transparent 70%);
+    }
+    header, main, footer {
+      position: relative;
+      z-index: 10;
+    }
+    /* Apple HIG Frosted Glass Cards */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(24px) saturate(190%);
+      -webkit-backdrop-filter: blur(24px) saturate(190%);
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 8px 24px -4px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04), 0 16px 36px -4px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
+    }
+    /* Apple HIG Segmented Control */
+    .segmented-control {
+      background: rgba(118, 118, 128, 0.12);
+      border-radius: 9999px;
+      padding: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+    .segmented-btn {
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #6e6e73;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .segmented-btn:hover {
+      color: #1d1d1f;
+    }
+    .segmented-btn.active {
+      background: #ffffff;
+      color: #1d1d1f;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 0.5px 2px rgba(0, 0, 0, 0.06);
+    }
+    /* Apple Style Checkbox */
+    .apple-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid #d1d1d6;
+      border-radius: 6px;
+      background: #ffffff;
+      cursor: pointer;
+      display: inline-grid;
+      place-content: center;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+    .apple-checkbox:hover {
+      border-color: #0071e3;
+      background: rgba(0, 113, 227, 0.04);
+    }
+    .apple-checkbox:checked {
+      background: #0071e3;
+      border-color: #0071e3;
+      box-shadow: 0 2px 6px rgba(0, 113, 227, 0.32);
+    }
+    .apple-checkbox:checked::before {
+      content: "";
+      width: 10px;
+      height: 6px;
+      border-left: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+    .topic-checkbox:checked + span {
+      text-decoration: line-through;
+      color: #8e8e93;
+    }
+    /* 3Blue1Brown Signature Badge */
+    .b1b-badge {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+    }
+    /* Division Card Interactive States */
+    .division-card-btn {
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .division-card-btn:hover {
+      transform: translateY(-2px);
+    }
+    /* Video Card Alignment & Consistent Heights */
+    .video-card-equal {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .video-title-fixed {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 2.5rem;
+    }
+    /* Smooth Micro-Interactions */
+    button, input, select, textarea {
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    button:active {
+      transform: scale(0.98);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#fbfbfd] text-[#1d1d1f] selection:bg-blue-600 selection:text-white">
+  <!-- Ambient Refraction Orbs -->
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-30 border-b border-black/[0.06] bg-white/80 backdrop-blur-2xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-500 flex items-center justify-center shadow-md shadow-blue-500/20 font-bold text-white text-base">
+          AI
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-[#1d1d1f]">GenAI &amp; LLM Architect Roadmap</h1>
+            <span class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200/80">
+              15 Modules &bull; 4 Divisions
+            </span>
+            <span class="hidden md:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold b1b-badge">
+              <span>&pi;</span> 3Blue1Brown Visuals
+            </span>
+          </div>
+          <p class="text-xs text-[#6e6e73]">Full-Stack Deep Curriculum &bull; Math, Neural Nets, Transformers, RAG &amp; Agentic AI</p>
+        </div>
+      </div>
+
+      <!-- Navigation Segmented Control -->
+      <nav class="segmented-control" aria-label="Main Views">
+        <button id="tab-btn-roadmap" data-view="roadmap" class="segmented-btn active">
+          Roadmap &amp; Curriculum
+        </button>
+        <button id="tab-btn-videos" data-view="videos" class="segmented-btn">
+          Video Hub &amp; 3B1B
+        </button>
+        <button id="tab-btn-projects" data-view="projects" class="segmented-btn">
+          Projects Lab
+        </button>
+        <button id="tab-btn-planner" data-view="planner" class="segmented-btn">
+          Study Planner &amp; Stats
+        </button>
+      </nav>
+
+      <!-- Global Quick Stats & Export -->
+      <div class="hidden xl:flex items-center gap-3">
+        <div class="text-right">
+          <div class="text-[11px] text-[#86868b] font-medium">Overall Mastery</div>
+          <div class="text-xs font-bold text-blue-600 font-mono" id="header-progress-text">3 / 229 (1.3%)</div>
+        </div>
+        <div class="w-28 h-2 bg-neutral-200/70 rounded-full overflow-hidden">
+          <div id="header-progress-bar" class="h-full bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-400 transition-all duration-300" style="width: 2%"></div>
+        </div>
+        <button id="open-backup-modal-btn" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-neutral-100 hover:bg-neutral-200/80 text-[#1d1d1f] border border-black/5 transition shadow-sm">
+          Export / Backup
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    <!-- Hero Banner & 4-Division Overview -->
+    <section class="relative rounded-3xl overflow-hidden glass-card p-6 sm:p-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-7 space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-semibold">
+            <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+            Apple HIG Design Philosophy &bull; Verified Links &amp; Visual Intuition First
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#1d1d1f] leading-tight">
+            Master Generative AI, LLMs &amp; Deep Learning Inside Out
+          </h2>
+          <p class="text-xs sm:text-sm text-[#424245] leading-relaxed max-w-2xl">
+            A production-ready curriculum structured across 15 progressive modules from first-principles Mathematics and PyTorch to Transformers, RAG pipelines, Autonomous Agents, and Scaled LLMOps &mdash; ordered with <span class="font-semibold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">&pi; 3Blue1Brown</span> visual foundations first, followed by deep technical implementation.
+          </p>
+          <div class="flex flex-wrap items-center gap-2.5 pt-2">
+            <button onclick="document.getElementById('tab-btn-roadmap').click();" class="px-4 py-2 rounded-full text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm shadow-blue-500/25 transition">
+              Explore Roadmap &darr;
+            </button>
+            <button id="hero-3b1b-quickbtn" class="px-3.5 py-2 rounded-full text-xs font-semibold b1b-badge hover:brightness-110 transition flex items-center gap-1.5">
+              <span>&pi;</span> 3Blue1Brown Essentials
+            </button>
+            <button onclick="document.getElementById('tab-btn-planner').click();" class="px-3.5 py-2 rounded-full text-xs font-semibold bg-white hover:bg-neutral-50 text-[#1d1d1f] border border-black/10 transition shadow-sm">
+              Study Pace Estimator
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Stat Counters in Elevated White HIG Cards -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+          <div class="bg-white/95 rounded-2xl p-4 border border-black/[0.06] shadow-sm space-y-1">
+            <div class="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider">Curriculum Topics</div>
+            <div class="text-xl sm:text-2xl font-extrabold text-[#1d1d1f] font-mono" id="hero-topics-stat">3 / 229</div>
+            <div class="text-xs font-semibold text-blue-600" id="hero-topics-pct">1.3% complete</div>
+          </div>
+          <div class="bg-white/95 rounded-2xl p-4 border border-black/[0.06] shadow-sm space-y-1">
+            <div class="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider">Modules Status</div>
+            <div class="text-xl sm:text-2xl font-extrabold text-purple-600 font-mono" id="hero-modules-stat">1 / 15</div>
+            <div class="text-xs text-[#6e6e73] truncate" id="hero-next-module">Next: 01 Math for ML</div>
+          </div>
+          <div class="bg-white/95 rounded-2xl p-4 border border-black/[0.06] shadow-sm space-y-1">
+            <div class="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider">Curated Video Lessons</div>
+            <div class="text-xl sm:text-2xl font-extrabold text-amber-600 font-mono" id="hero-videos-stat">7 / 111</div>
+            <div class="text-xs text-amber-700 font-medium flex items-center gap-1" id="hero-3b1b-count-label">
+              <span>&pi;</span> 26 3B1B Visual Lessons
+            </div>
+          </div>
+          <div class="bg-white/95 rounded-2xl p-4 border border-black/[0.06] shadow-sm space-y-1">
+            <div class="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider">Hands-on Capstones</div>
+            <div class="text-xl sm:text-2xl font-extrabold text-orange-600 font-mono" id="hero-projects-stat">0 / 26</div>
+            <div class="text-xs text-[#6e6e73]">Code + GitHub tracker</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learning Divisions Section -->
+    <section aria-label="Learning Divisions" class="space-y-3">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-sm sm:text-base font-bold text-[#1d1d1f]">Curriculum Divisions</h3>
+          <p class="text-xs text-[#6e6e73]">Click any division below to instantly focus the roadmap</p>
+        </div>
+        <button id="clear-division-filter-btn" class="text-xs text-blue-600 hover:text-blue-700 font-semibold hidden flex items-center gap-1">
+          <span>&times;</span> Clear Division Filter
+        </button>
+      </div>
+      <div id="division-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <!-- Injected dynamically by JS -->
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 1: ROADMAP & CURRICULUM ==================== -->
+    <section id="view-roadmap" class="space-y-5">
+      <!-- Search, Quick Filters & Controls -->
+      <div class="glass-card rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex flex-wrap items-center gap-2.5 flex-1 min-w-[260px]">
+          <div class="relative flex-1 min-w-[180px]">
+            <input
+              type="text"
+              id="roadmap-search-input"
+              placeholder="Search topics, libraries, 3B1B videos, projects... (or press /)"
+              class="w-full bg-white border border-black/10 rounded-full px-4 py-2 text-xs sm:text-sm text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-inner"
+            />
+            <button id="clear-search-btn" class="hidden absolute right-3 top-2.5 text-neutral-400 hover:text-[#1d1d1f] text-xs font-bold">
+              &times;
+            </button>
+          </div>
+          <select id="status-filter-select" class="bg-white border border-black/10 rounded-full px-3.5 py-2 text-xs sm:text-sm text-[#1d1d1f] font-medium focus:outline-none focus:border-blue-500 shadow-sm cursor-pointer">
+            <option value="all">All Statuses</option>
+            <option value="not-started">Not Started</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+          <!-- 3Blue1Brown Spotlight Toggle Button -->
+          <button id="filter-3b1b-toggle-btn" class="px-3.5 py-2 rounded-full text-xs font-semibold border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 flex items-center gap-1.5 shadow-sm transition">
+            <span>&pi;</span> 3B1B Lessons Only
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="expand-all-btn" class="px-3.5 py-2 rounded-full text-xs font-semibold bg-white hover:bg-neutral-50 text-[#1d1d1f] border border-black/10 shadow-sm transition">
+            Expand All
+          </button>
+          <button id="collapse-all-btn" class="px-3.5 py-2 rounded-full text-xs font-semibold bg-white hover:bg-neutral-50 text-[#1d1d1f] border border-black/10 shadow-sm transition">
+            Collapse All
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Module Jump Bar -->
+      <div class="space-y-1.5">
+        <div class="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider px-1">Jump to Module (00 &ndash; 14)</div>
+        <div id="module-jump-bar" class="flex items-center gap-1.5 overflow-x-auto pb-2 custom-scrollbar">
+          <!-- Injected dynamically by JS -->
+        </div>
+      </div>
+
+      <!-- Modules Accordion List -->
+      <div id="modules-list-container" class="space-y-4">
+        <!-- Injected dynamically by JS -->
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: YOUTUBE VIDEO HUB ==================== -->
+    <section id="view-videos" class="hidden space-y-5">
+      <div class="glass-card rounded-2xl p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-lg font-bold text-[#1d1d1f]">Master Video Hub &amp; Visual Lessons</h2>
+              <span class="px-2 py-0.5 rounded-full text-xs font-semibold b1b-badge flex items-center gap-1">
+                <span>&pi;</span> 3Blue1Brown Featured
+              </span>
+            </div>
+            <p class="text-xs text-[#6e6e73]" id="video-hub-subtitle">Hand-curated lessons ordered with 3B1B visual intuition first, followed by deep technical lectures.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <input
+              type="text"
+              id="video-search-input"
+              placeholder="Search video titles, channels or topics..."
+              class="bg-white border border-black/10 rounded-full px-3.5 py-2 text-xs sm:text-sm text-[#1d1d1f] focus:outline-none focus:border-blue-500 shadow-sm min-w-[200px]"
+            />
+            <select id="video-channel-filter" class="bg-white border border-black/10 rounded-full px-3.5 py-2 text-xs sm:text-sm text-[#1d1d1f] font-medium focus:outline-none focus:border-blue-500 shadow-sm cursor-pointer">
+              <option value="all">All Channels (3Blue1Brown, CampusX &amp; Others)</option>
+              <option value="3Blue1Brown">&pi; 3Blue1Brown (Visual Math &amp; Deep Learning)</option>
+              <option value="CampusX">CampusX (Deep Curriculum &amp; ML)</option>
+              <option value="others">Other Creators (Karpathy, Umar Jamil, etc.)</option>
+            </select>
+            <select id="video-watch-filter" class="bg-white border border-black/10 rounded-full px-3.5 py-2 text-xs sm:text-sm text-[#1d1d1f] font-medium focus:outline-none focus:border-blue-500 shadow-sm cursor-pointer">
+              <option value="all">All Watch Status</option>
+              <option value="unwatched">Unwatched</option>
+              <option value="watched">Watched</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Video Cards Grid -->
+        <div id="video-hub-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-1 items-stretch">
+          <!-- Injected dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: PROJECTS LAB ==================== -->
+    <section id="view-projects" class="hidden space-y-5">
+      <div class="glass-card rounded-2xl p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 class="text-lg font-bold text-[#1d1d1f]">Hands-On Capstone Engineering Lab</h2>
+            <p class="text-xs text-[#6e6e73]">26 production projects &bull; Mark completion, link your GitHub repositories, and build your AI portfolio.</p>
+          </div>
+          <div>
+            <select id="project-filter-select" class="bg-white border border-black/10 rounded-full px-3.5 py-2 text-xs sm:text-sm text-[#1d1d1f] font-medium focus:outline-none focus:border-blue-500 shadow-sm cursor-pointer">
+              <option value="all">All Projects (26)</option>
+              <option value="pending">Pending Projects</option>
+              <option value="completed">Completed Projects</option>
+              <option value="bangla">Bangla NLP / Voice Projects</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="projects-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-1 items-stretch">
+          <!-- Injected dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: STUDY PLANNER & ANALYTICS ==================== -->
+    <section id="view-planner" class="hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Interactive Study Pace Calculator -->
+        <div class="lg:col-span-5 glass-card rounded-3xl p-6 space-y-5">
+          <div>
+            <h2 class="text-lg font-bold text-[#1d1d1f]">Interactive Study Pace Estimator</h2>
+            <p class="text-xs text-[#6e6e73]">Adjust your weekly hours commitment to calculate your target roadmap graduation date.</p>
+          </div>
+
+          <div class="space-y-3 bg-neutral-50 p-4 rounded-2xl border border-black/[0.05]">
+            <div class="flex items-center justify-between">
+              <label for="study-hours-slider" class="text-xs font-semibold text-[#1d1d1f]">Weekly Study Commitment</label>
+              <span id="study-hours-display" class="text-sm font-bold text-blue-600 font-mono">12 hrs / week</span>
+            </div>
+            <input
+              type="range"
+              id="study-hours-slider"
+              min="4"
+              max="40"
+              step="1"
+              value="12"
+              class="w-full accent-blue-600 cursor-pointer"
+            />
+            <div class="flex justify-between text-[11px] text-[#86868b] font-medium">
+              <span>4h/wk (Casual)</span>
+              <span>15h/wk (Steady)</span>
+              <span>30h+/wk (Intensive)</span>
+            </div>
+          </div>
+
+          <div class="space-y-2 bg-neutral-50 p-4 rounded-2xl border border-black/[0.05]">
+            <div class="flex items-center justify-between">
+              <label for="hours-per-topic-select" class="text-xs font-semibold text-[#1d1d1f]">Depth Mode</label>
+              <select id="hours-per-topic-select" class="bg-white border border-black/10 rounded-lg px-2.5 py-1 text-xs text-[#1d1d1f] font-medium shadow-sm">
+                <option value="1.2">Fast Overview (1.2 hrs/topic)</option>
+                <option value="2.0" selected>Standard Practice (2.0 hrs/topic)</option>
+                <option value="3.2">Deep Research + Code (3.2 hrs/topic)</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="planner-summary-cards" class="grid grid-cols-2 gap-3">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="pt-2">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-[#86868b] mb-2.5">Projected Module Timeline</h3>
+            <div id="planner-schedule-list" class="space-y-2 max-h-80 overflow-y-auto pr-1 custom-scrollbar">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics Charts -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="glass-card rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="text-base font-bold text-[#1d1d1f]">Module Completion Progress (00 &ndash; 14)</h3>
+                <p class="text-xs text-[#6e6e73]">Percentage of topics mastered inside each module</p>
+              </div>
+            </div>
+            <div class="relative h-72 w-full">
+              <canvas id="moduleProgressChart"></canvas>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="text-base font-bold text-[#1d1d1f]">4-Division Mastery Breakdown</h3>
+                <p class="text-xs text-[#6e6e73]">Completed vs. remaining topics across the 4 core AI engineering tracks</p>
+              </div>
+            </div>
+            <div class="relative h-64 w-full">
+              <canvas id="trackProgressChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== IN-APP YOUTUBE VIDEO MODAL ==================== -->
+  <div id="video-modal" class="fixed inset-0 z-50 hidden bg-black/40 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-white/95 backdrop-blur-2xl border border-black/10 rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl">
+      <div class="px-5 py-3.5 border-b border-black/[0.06] flex items-center justify-between gap-3 bg-white/80">
+        <div class="min-w-0">
+          <span id="modal-video-channel" class="text-xs font-bold text-blue-600 uppercase tracking-wider">Channel</span>
+          <h3 id="modal-video-title" class="text-sm sm:text-base font-bold text-[#1d1d1f] truncate">Video Title</h3>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button id="modal-mark-watched-btn" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition">
+            Mark Watched
+          </button>
+          <a id="modal-external-link" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-neutral-900 hover:bg-black text-white transition flex items-center gap-1">
+            Open on YouTube &nearr;
+          </a>
+          <button id="close-video-modal-btn" class="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 hover:text-black flex items-center justify-center font-bold text-sm">
+            &times;
+          </button>
+        </div>
+      </div>
+      <div class="relative w-full aspect-video bg-black">
+        <iframe
+          id="modal-video-iframe"
+          class="w-full h-full"
+          src="about:blank"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="px-5 py-3 bg-[#f5f5f7] flex flex-wrap items-center justify-between gap-2 text-xs text-[#6e6e73]">
+        <span id="modal-video-topics" class="font-medium text-[#1d1d1f]">Covers core module concepts</span>
+        <span class="flex items-center gap-1">
+          <span>Trouble with embedding?</span>
+          <a id="modal-fallback-link" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-semibold underline">
+            Watch directly on YouTube &nearr;
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== EXPORT / IMPORT / RESET MODAL ==================== -->
+  <div id="backup-modal" class="fixed inset-0 z-50 hidden bg-black/35 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white/95 backdrop-blur-2xl border border-black/10 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold text-[#1d1d1f]">Manage Progress &amp; Data Backup</h3>
+        <button id="close-backup-modal-btn" class="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 hover:text-black flex items-center justify-center font-bold text-sm">&times;</button>
+      </div>
+      <p class="text-xs text-[#6e6e73] leading-relaxed">
+        Your progress is automatically saved to your browser local storage. You can copy your JSON backup, restore from JSON, or reset back to default.
+      </p>
+      <textarea
+        id="backup-json-textarea"
+        rows="5"
+        class="w-full bg-[#f5f5f7] border border-black/10 rounded-2xl p-3 text-xs font-mono text-[#1d1d1f] focus:outline-none focus:border-blue-500"
+        placeholder="Progress JSON data..."
+      ></textarea>
+      <div id="backup-inline-feedback" class="hidden text-xs font-semibold px-3 py-2 rounded-xl bg-rose-50 text-rose-700 border border-rose-200"></div>
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2">
+        <div class="flex items-center gap-2">
+          <button id="copy-json-btn" class="px-4 py-2 rounded-full text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition shadow-sm">
+            Copy JSON Backup
+          </button>
+          <button id="import-json-btn" class="px-4 py-2 rounded-full text-xs font-semibold bg-neutral-100 hover:bg-neutral-200 text-[#1d1d1f] border border-black/10 transition">
+            Restore from JSON
+          </button>
+        </div>
+        <button id="reset-progress-btn" class="px-4 py-2 rounded-full text-xs font-semibold bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 transition">
+          Reset to Default
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 pointer-events-none transition-all duration-300 opacity-0 translate-y-2">
+    <div id="toast-message" class="bg-white/95 backdrop-blur-xl text-[#1d1d1f] text-xs font-semibold px-4 py-2.5 rounded-full shadow-lg border border-black/10 flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+      Saved!
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. COMPLETE STRUCTURED ROADMAP DATA (15 MODULES + VERIFIED 3B1B & LINKS)
+    // Pedagogical Video Order: 3Blue1Brown Visual Intuition -> CampusX Core -> Specialized Deep Dives
+    // =========================================================================
+    const DIVISIONS = [
+      {
+        id: 'div-foundations-ml',
+        number: 'Division I',
+        title: 'Foundations, Math & Classical ML',
+        subtitle: 'Modules 00 - 02 • Data Stack, Linear Algebra, Calculus & Scikit-Learn',
+        color: 'blue',
+        badgeClass: 'bg-blue-50 text-blue-700 border-blue-200/80',
+        borderClass: 'border-blue-500/80',
+        ringClass: 'ring-blue-500/30',
+        barClass: 'from-blue-600 via-indigo-600 to-cyan-500',
+        accentBg: 'bg-blue-500/10',
+        accentText: 'text-blue-600',
+        hex: '#0071e3',
+        modules: ['00_completed', '01_mathematics_for_ml', '02_machine_learning']
+      },
+      {
+        id: 'div-dl-nlp',
+        number: 'Division II',
+        title: 'Deep Learning & NLP Core',
+        subtitle: 'Modules 03 - 05 • Neural Nets, PyTorch, CNN/RNN/LSTM & Tokenization',
+        color: 'purple',
+        badgeClass: 'bg-purple-50 text-purple-700 border-purple-200/80',
+        borderClass: 'border-purple-500/80',
+        ringClass: 'ring-purple-500/30',
+        barClass: 'from-purple-600 via-violet-600 to-pink-500',
+        accentBg: 'bg-purple-500/10',
+        accentText: 'text-purple-600',
+        hex: '#7c3aed',
+        modules: ['03_deep_learning_fundamentals', '04_deep_learning_architectures', '05_nlp_fundamentals']
+      },
+      {
+        id: 'div-transformers-rag',
+        number: 'Division III',
+        title: 'Transformers, LLMs & RAG Systems',
+        subtitle: 'Modules 06 - 09 • Self-Attention, Pretraining, Vector Search & RAG',
+        color: 'emerald',
+        badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200/80',
+        borderClass: 'border-emerald-500/80',
+        ringClass: 'ring-emerald-500/30',
+        barClass: 'from-emerald-600 via-teal-600 to-cyan-500',
+        accentBg: 'bg-emerald-500/10',
+        accentText: 'text-emerald-600',
+        hex: '#059669',
+        modules: ['06_transformers', '07_llm_fundamentals', '08_embeddings_and_vector_search', '09_rag']
+      },
+      {
+        id: 'div-agents-llmops',
+        number: 'Division IV',
+        title: 'Fine-Tuning, Agents, Multimodal & LLMOps',
+        subtitle: 'Modules 10 - 14 • LoRA/QLoRA, LangGraph, MCP, vLLM & RLHF/DPO',
+        color: 'orange',
+        badgeClass: 'bg-orange-50 text-orange-700 border-orange-200/80',
+        borderClass: 'border-orange-500/80',
+        ringClass: 'ring-orange-500/30',
+        barClass: 'from-orange-500 via-rose-500 to-amber-500',
+        accentBg: 'bg-orange-500/10',
+        accentText: 'text-orange-600',
+        hex: '#ea580c',
+        modules: ['10_fine_tuning', '11_ai_agents', '12_multimodal_generative_ai', '13_deployment_and_llm_engineering', '14_llm_architecture_and_research']
+      }
+    ];
+
+    const ROADMAP_MODULES = [
+      {
+        id: '00_completed',
+        code: '00',
+        key: '00_completed',
+        title: 'Completed Data Science Foundations',
+        divisionId: 'div-foundations-ml',
+        priority: 'Completed',
+        defaultCompleted: true,
+        libraries: ['NumPy', 'Pandas', 'SciPy'],
+        officialLinks: [
+          { label: '3Blue1Brown Official Site', url: 'https://www.3blue1brown.com/' },
+          { label: 'CampusX Playlists Hub', url: 'https://www.youtube.com/@campusx-official/playlists' },
+          { label: 'StatQuest Revision Channel', url: 'https://www.youtube.com/@statquest' }
+        ],
+        subdivisions: [
+          {
+            name: 'Core Data & Statistical Foundations',
+            topics: [
+              'Statistics and probability',
+              'NumPy arrays and vectorized operations',
+              'Pandas DataFrames and data manipulation'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-3b1b-bayes-1',
+            ytId: 'HZGCoVF3YvM',
+            title: 'Bayes theorem, the geometry of changing beliefs | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '15:10',
+            url: 'https://www.youtube.com/watch?v=HZGCoVF3YvM',
+            topicTag: 'Statistics and probability'
+          },
+          {
+            id: 'vid-3b1b-bayes-2',
+            ytId: 'lG4VkPoG3ko',
+            title: 'The medical test paradox, and redesigning Bayes rule | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '10:48',
+            url: 'https://www.youtube.com/watch?v=lG4VkPoG3ko',
+            topicTag: 'Statistics and probability'
+          },
+          {
+            id: 'vid-00-1',
+            ytId: 'Uv3Blie7F3g',
+            title: 'Descriptive Statistics Part 1 | Data Science Mentorship Program (DSMP) | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '2:05:14',
+            url: 'https://www.youtube.com/watch?v=Uv3Blie7F3g',
+            topicTag: 'Statistics and probability'
+          },
+          {
+            id: 'vid-00-2',
+            ytId: 'XF6DCrNTzug',
+            title: 'NumPy Fundamentals (Arrays & Vectorized Operations) | DSMP | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:52:10',
+            url: 'https://www.youtube.com/watch?v=XF6DCrNTzug',
+            topicTag: 'NumPy arrays and vectorized operations'
+          },
+          {
+            id: 'vid-00-3',
+            ytId: '40xGMygHMDU',
+            title: 'Session 14 - Advanced NumPy & Broadcasting | DSMP | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '2:01:30',
+            url: 'https://www.youtube.com/watch?v=40xGMygHMDU',
+            topicTag: 'NumPy arrays and vectorized operations'
+          },
+          {
+            id: 'vid-00-4',
+            ytId: 'zCDVUyq8lkw',
+            title: 'Pandas Series & DataFrames Fundamentals | DSMP | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '2:11:45',
+            url: 'https://www.youtube.com/watch?v=zCDVUyq8lkw',
+            topicTag: 'Pandas DataFrames and data manipulation'
+          },
+          {
+            id: 'vid-00-5',
+            ytId: 'LPBjF4_gZnI',
+            title: 'Session 19 - GroupBy Object & Data Manipulation in Pandas | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:58:20',
+            url: 'https://www.youtube.com/watch?v=LPBjF4_gZnI',
+            topicTag: 'Pandas DataFrames and data manipulation'
+          }
+        ],
+        projects: []
+      },
+      {
+        id: '01_mathematics_for_ml',
+        code: '01',
+        key: '01_mathematics_for_ml',
+        title: 'Mathematics for Machine Learning',
+        divisionId: 'div-foundations-ml',
+        priority: 'Essential foundations',
+        defaultCompleted: false,
+        libraries: ['NumPy', 'Matplotlib'],
+        officialLinks: [
+          { label: '3Blue1Brown Linear Algebra Series', url: 'https://www.3blue1brown.com/topics/linear-algebra' },
+          { label: '3Blue1Brown Calculus Series', url: 'https://www.3blue1brown.com/topics/calculus' },
+          { label: 'CampusX Official Channel', url: 'https://www.youtube.com/@campusx-official/playlists' }
+        ],
+        subdivisions: [
+          {
+            name: 'Linear Algebra & Matrix Operations',
+            topics: [
+              'Scalars, vectors, matrices and tensors',
+              'Matrix multiplication and transpose',
+              'Dot products and vector norms',
+              'Eigenvalues and eigenvectors - basic intuition'
+            ]
+          },
+          {
+            name: 'Multivariable Calculus & Optimization',
+            topics: [
+              'Derivatives and partial derivatives',
+              'Chain rule',
+              'Gradients and gradient descent'
+            ]
+          },
+          {
+            name: 'Probability & Statistical Relationships',
+            topics: [
+              'Probability distributions and Bayes theorem',
+              'Mean, variance, covariance and correlation'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-3b1b-la-1',
+            ytId: 'fNk_zzaMoSs',
+            title: 'Vectors | Chapter 1, Essence of linear algebra | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '9:52',
+            url: 'https://www.youtube.com/watch?v=fNk_zzaMoSs',
+            topicTag: 'Scalars, vectors, matrices and tensors'
+          },
+          {
+            id: 'vid-3b1b-la-2',
+            ytId: 'k7RM-ot2NWY',
+            title: 'Linear combinations, span, and basis vectors | Chapter 2, Essence of linear algebra | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '9:59',
+            url: 'https://www.youtube.com/watch?v=k7RM-ot2NWY',
+            topicTag: 'Scalars, vectors, matrices and tensors'
+          },
+          {
+            id: 'vid-3b1b-la-3',
+            ytId: 'kYB8IZa5AuE',
+            title: 'Linear transformations and matrices | Chapter 3, Essence of linear algebra | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '10:59',
+            url: 'https://www.youtube.com/watch?v=kYB8IZa5AuE',
+            topicTag: 'Matrix multiplication and transpose'
+          },
+          {
+            id: 'vid-3b1b-la-4',
+            ytId: 'XkY2DOUCWMU',
+            title: 'Matrix multiplication as composition | Chapter 4, Essence of linear algebra | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '10:04',
+            url: 'https://www.youtube.com/watch?v=XkY2DOUCWMU',
+            topicTag: 'Matrix multiplication and transpose'
+          },
+          {
+            id: 'vid-3b1b-la-det',
+            ytId: 'Ip3X9LOh2dk',
+            title: 'The determinant | Chapter 6, Essence of linear algebra | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '10:03',
+            url: 'https://www.youtube.com/watch?v=Ip3X9LOh2dk',
+            topicTag: 'Linear Algebra, Matrices & Eigenvalues'
+          },
+          {
+            id: 'vid-3b1b-la-5',
+            ytId: 'LyGKycYT2v0',
+            title: 'Dot products and duality | Chapter 9, Essence of linear algebra | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '14:12',
+            url: 'https://www.youtube.com/watch?v=LyGKycYT2v0',
+            topicTag: 'Dot products and vector norms'
+          },
+          {
+            id: 'vid-3b1b-la-6',
+            ytId: 'PFDu9oVAE-g',
+            title: 'Eigenvectors and eigenvalues | Chapter 14, Essence of linear algebra | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '17:16',
+            url: 'https://www.youtube.com/watch?v=PFDu9oVAE-g',
+            topicTag: 'Eigenvalues and eigenvectors - basic intuition'
+          },
+          {
+            id: 'vid-3b1b-calc-1',
+            ytId: 'WUvTyaaNkzM',
+            title: 'The essence of calculus | Chapter 1 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '17:05',
+            url: 'https://www.youtube.com/watch?v=WUvTyaaNkzM',
+            topicTag: 'Derivatives and partial derivatives'
+          },
+          {
+            id: 'vid-3b1b-calc-deriv',
+            ytId: '9vKqVkMQHKk',
+            title: 'The paradox of the derivative | Chapter 2, Essence of calculus | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '17:12',
+            url: 'https://www.youtube.com/watch?v=9vKqVkMQHKk',
+            topicTag: 'Derivatives and partial derivatives'
+          },
+          {
+            id: 'vid-3b1b-calc-2',
+            ytId: 'YG15m2VwSjA',
+            title: 'Visualizing the chain rule and product rule | Chapter 4, Essence of calculus | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '18:14',
+            url: 'https://www.youtube.com/watch?v=YG15m2VwSjA',
+            topicTag: 'Chain rule'
+          },
+          {
+            id: 'vid-3b1b-calc-3',
+            ytId: 'BLkz5LGWihw',
+            title: 'Higher order derivatives | Chapter 10, Essence of calculus | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '5:39',
+            url: 'https://www.youtube.com/watch?v=BLkz5LGWihw',
+            topicTag: 'Derivatives and partial derivatives'
+          },
+          {
+            id: 'vid-3b1b-calc-taylor',
+            ytId: '3d6DsjIBzJ4',
+            title: 'Taylor series | Chapter 11, Essence of calculus | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '22:20',
+            url: 'https://www.youtube.com/watch?v=3d6DsjIBzJ4',
+            topicTag: 'Gradients and gradient descent'
+          },
+          {
+            id: 'vid-3b1b-clt',
+            ytId: 'zeJD6dqJ5lo',
+            title: 'But what is the Central Limit Theorem? | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '31:15',
+            url: 'https://www.youtube.com/watch?v=zeJD6dqJ5lo',
+            topicTag: 'Probability distributions and Bayes theorem'
+          },
+          {
+            id: 'vid-01-1',
+            ytId: 'rIsCKVyh4dI',
+            title: 'Linear Algebra Roadmap for Machine Learning and Deep Learning | Complete Guide | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '26:18',
+            url: 'https://www.youtube.com/watch?v=rIsCKVyh4dI',
+            topicTag: 'Linear Algebra, Matrices & Eigenvalues'
+          },
+          {
+            id: 'vid-01-2',
+            ytId: 'mQewAJb8oJ8',
+            title: 'Supercharge Your ML Journey: Mastering Vectors in Linear Algebra - Part 1 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:31:58',
+            url: 'https://www.youtube.com/watch?v=mQewAJb8oJ8',
+            topicTag: 'Scalars, vectors, dot products and vector norms'
+          },
+          {
+            id: 'vid-01-3',
+            ytId: 'ORyfPJypKuU',
+            title: 'Gradient Descent From Scratch | Derivatives, Slopes & Optimization | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '54:12',
+            url: 'https://www.youtube.com/watch?v=ORyfPJypKuU',
+            topicTag: 'Derivatives, Chain rule & Gradients and gradient descent'
+          },
+          {
+            id: 'vid-01-4',
+            ytId: 'DUT4WEUngt0',
+            title: 'Master Probability in Data Science: The Ultimate Crash Course! | Part 1 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:45:20',
+            url: 'https://www.youtube.com/watch?v=DUT4WEUngt0',
+            topicTag: 'Probability distributions and Bayes theorem'
+          },
+          {
+            id: 'vid-01-5',
+            ytId: '1ndVC500-EU',
+            title: 'Descriptive Statistics Part 2 (Mean, Variance, Covariance & Correlation) | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '2:12:05',
+            url: 'https://www.youtube.com/watch?v=1ndVC500-EU',
+            topicTag: 'Mean, variance, covariance and correlation'
+          }
+        ],
+        projects: []
+      },
+      {
+        id: '02_machine_learning',
+        code: '02',
+        key: '02_machine_learning',
+        title: 'Classical Machine Learning (100 Days of ML)',
+        divisionId: 'div-foundations-ml',
+        priority: 'Learn before deep learning',
+        defaultCompleted: false,
+        libraries: ['scikit-learn', 'matplotlib', 'seaborn'],
+        officialLinks: [
+          { label: 'CampusX 100 Days of ML', url: 'https://www.youtube.com/watch?v=ZftI2fEz0Fw' },
+          { label: 'Scikit-Learn Getting Started', url: 'https://scikit-learn.org/stable/getting_started.html' }
+        ],
+        subdivisions: [
+          {
+            name: 'ML Foundations & Data Preprocessing',
+            topics: [
+              'What is machine learning',
+              'Supervised vs unsupervised learning',
+              'Regression vs classification',
+              'Feature engineering and preprocessing',
+              'Train, validation and test split',
+              'Data leakage'
+            ]
+          },
+          {
+            name: 'Regression & Parametric Models',
+            topics: [
+              'Linear regression',
+              'Polynomial regression',
+              'Gradient descent',
+              'Logistic regression'
+            ]
+          },
+          {
+            name: 'Classification, Trees & Ensemble Methods',
+            topics: [
+              'K-nearest neighbors',
+              'Naive Bayes',
+              'Decision trees',
+              'Random forests',
+              'Gradient boosting and XGBoost',
+              'Support vector machines'
+            ]
+          },
+          {
+            name: 'Unsupervised Learning & Dimensionality Reduction',
+            topics: [
+              'K-means clustering',
+              'Principal component analysis (PCA)'
+            ]
+          },
+          {
+            name: 'Model Evaluation, Regularization & Pipelines',
+            topics: [
+              'Overfitting and underfitting',
+              'Bias-variance tradeoff',
+              'Regularization: L1 and L2',
+              'Cross-validation',
+              'Hyperparameter tuning',
+              'Confusion matrix',
+              'Precision, recall and F1 score',
+              'ROC-AUC',
+              'Scikit-learn pipelines'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-3b1b-entropy-1',
+            ytId: 'l6DKRf-fAAM',
+            title: 'Reinventing Entropy | Compression is Intelligence Part 1 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '32:20',
+            url: 'https://www.youtube.com/watch?v=l6DKRf-fAAM',
+            topicTag: 'Decision trees & Information Gain'
+          },
+          {
+            id: 'vid-3b1b-cross-entropy',
+            ytId: 'GlYgs6v2YfU',
+            title: 'But what is cross-entropy? | Compression is Intelligence Part 2 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '33:51',
+            url: 'https://www.youtube.com/watch?v=GlYgs6v2YfU',
+            topicTag: 'Logistic regression & Classification loss'
+          },
+          {
+            id: 'vid-3b1b-pca-basis',
+            ytId: 'P2LTAUO1TdA',
+            title: 'Change of basis | Chapter 13, Essence of linear algebra | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '12:51',
+            url: 'https://www.youtube.com/watch?v=P2LTAUO1TdA',
+            topicTag: 'Principal component analysis (PCA)'
+          },
+          {
+            id: 'vid-02-1',
+            ytId: 'ZftI2fEz0Fw',
+            title: '100 Days of Machine Learning | Complete Course Kickoff & Roadmap | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '25:24',
+            url: 'https://www.youtube.com/watch?v=ZftI2fEz0Fw',
+            topicTag: 'What is machine learning & Supervised vs Unsupervised'
+          },
+          {
+            id: 'vid-02-2',
+            ytId: 'dr7z7a_8lQw',
+            title: 'End to End ML Toy Project (Preprocessing, Train/Test Split & Deployment) | Day 13 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '37:51',
+            url: 'https://www.youtube.com/watch?v=dr7z7a_8lQw',
+            topicTag: 'Feature engineering, Preprocessing & Train/test split'
+          },
+          {
+            id: 'vid-02-9',
+            ytId: 'mJlRTUuVr04',
+            title: 'Understanding Your Data & EDA | Day 19 | 100 Days of Machine Learning | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '34:18',
+            url: 'https://www.youtube.com/watch?v=mJlRTUuVr04',
+            topicTag: 'Exploratory Data Analysis & Preprocessing'
+          },
+          {
+            id: 'vid-02-3',
+            ytId: 'dXHIDLPKdmA',
+            title: 'Simple Linear Regression | Mathematical Formulation & Code | 100 Days of ML | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '43:56',
+            url: 'https://www.youtube.com/watch?v=dXHIDLPKdmA',
+            topicTag: 'Linear regression'
+          },
+          {
+            id: 'vid-02-4',
+            ytId: 'NU37mF5q8VE',
+            title: 'Multiple Linear Regression | Mathematical Formulation From Scratch | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '48:15',
+            url: 'https://www.youtube.com/watch?v=NU37mF5q8VE',
+            topicTag: 'Linear & Polynomial regression'
+          },
+          {
+            id: 'vid-02-5',
+            ytId: 'Jyo53pAyVAM',
+            title: 'Batch, Stochastic & Mini-Batch Gradient Descent with Code Demo | Day 52 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '41:10',
+            url: 'https://www.youtube.com/watch?v=Jyo53pAyVAM',
+            topicTag: 'Gradient descent'
+          },
+          {
+            id: 'vid-02-6',
+            ytId: 'bHK1fE_BUms',
+            title: 'Introduction to Ensemble Learning (Bagging, Random Forests & Boosting) | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '37:43',
+            url: 'https://www.youtube.com/watch?v=bHK1fE_BUms',
+            topicTag: 'Decision trees & Random forests'
+          },
+          {
+            id: 'vid-02-7',
+            ytId: 'C6aDw4y8qJ0',
+            title: 'Introduction to XGBOOST | Mathematical Intuition & Implementation | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:19:37',
+            url: 'https://www.youtube.com/watch?v=C6aDw4y8qJ0',
+            topicTag: 'Gradient boosting and XGBoost'
+          },
+          {
+            id: 'vid-02-8',
+            ytId: 'tXXnxjj2wM4',
+            title: 'Principal Component Analysis (PCA) | Problem Formulation and Step-by-Step Solution | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '56:17',
+            url: 'https://www.youtube.com/watch?v=tXXnxjj2wM4',
+            topicTag: 'Principal component analysis (PCA)'
+          },
+          {
+            id: 'vid-02-10',
+            ytId: '8Us9DXb88Uc',
+            title: '100 Days of Machine Learning Complete Notes, Regularization & Evaluation Guide | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '15:03',
+            url: 'https://www.youtube.com/watch?v=8Us9DXb88Uc',
+            topicTag: 'Regularization, Cross-validation & Evaluation'
+          }
+        ],
+        projects: [
+          'House price prediction',
+          'Spam message classifier',
+          'Customer segmentation',
+          'Student performance prediction'
+        ]
+      },
+      {
+        id: '03_deep_learning_fundamentals',
+        code: '03',
+        key: '03_deep_learning_fundamentals',
+        title: 'Deep Learning Fundamentals & PyTorch (100 Days of DL)',
+        divisionId: 'div-dl-nlp',
+        priority: 'Essential',
+        defaultCompleted: false,
+        libraries: ['PyTorch'],
+        officialLinks: [
+          { label: '3Blue1Brown Neural Networks Series', url: 'https://www.3blue1brown.com/topics/neural-networks' },
+          { label: 'CampusX 100 Days of DL', url: 'https://www.youtube.com/watch?v=2dH_qjc9mFg' },
+          { label: 'PyTorch Beginner Basics', url: 'https://pytorch.org/tutorials/beginner/basics/intro.html' }
+        ],
+        subdivisions: [
+          {
+            name: 'Neural Network Mechanics & Activations',
+            topics: [
+              'Perceptron',
+              'Artificial neural networks',
+              'Input, hidden and output layers',
+              'Weights and biases',
+              'Activation functions: ReLU, sigmoid, tanh and softmax'
+            ]
+          },
+          {
+            name: 'Forward Pass, Loss & Backpropagation',
+            topics: [
+              'Forward propagation',
+              'Loss functions: MSE and cross-entropy',
+              'Backpropagation',
+              'Chain rule in neural networks'
+            ]
+          },
+          {
+            name: 'Optimizers, Stability & GPU Training',
+            topics: [
+              'Gradient descent and SGD',
+              'Adam optimizer',
+              'Learning rate and batch size',
+              'Epochs and mini-batches',
+              'Weight initialization',
+              'Batch normalization',
+              'Dropout',
+              'Vanishing and exploding gradients',
+              'Training and validation curves',
+              'GPU acceleration'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-3b1b-nn-1',
+            ytId: 'aircAruvnKk',
+            title: 'But what is a neural network? | Deep learning, chapter 1 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '19:13',
+            url: 'https://www.youtube.com/watch?v=aircAruvnKk',
+            topicTag: 'Perceptron & Artificial neural networks'
+          },
+          {
+            id: 'vid-3b1b-nn-2',
+            ytId: 'IHZwWFHWa-w',
+            title: 'Gradient descent, how neural networks learn | Deep learning, chapter 2 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '20:33',
+            url: 'https://www.youtube.com/watch?v=IHZwWFHWa-w',
+            topicTag: 'Gradient descent and SGD'
+          },
+          {
+            id: 'vid-3b1b-nn-3',
+            ytId: 'Ilg3gGewQ5U',
+            title: 'What is backpropagation really doing? | Deep learning, chapter 3 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '13:54',
+            url: 'https://www.youtube.com/watch?v=Ilg3gGewQ5U',
+            topicTag: 'Backpropagation'
+          },
+          {
+            id: 'vid-3b1b-nn-4',
+            ytId: 'tIeHLnjs5U8',
+            title: 'Backpropagation calculus | Deep learning, chapter 4 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '10:18',
+            url: 'https://www.youtube.com/watch?v=tIeHLnjs5U8',
+            topicTag: 'Chain rule in neural networks'
+          },
+          {
+            id: 'vid-03-1',
+            ytId: 'fHF22Wxuyw4',
+            title: 'What is Deep Learning? Deep Learning Vs Machine Learning | Complete DL Course | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:06:58',
+            url: 'https://www.youtube.com/watch?v=fHF22Wxuyw4',
+            topicTag: 'Artificial neural networks & Layers'
+          },
+          {
+            id: 'vid-03-2',
+            ytId: 'Lu2bruOHN6g',
+            title: 'Perceptron Trick & Geometric Intuition | 100 Days of Deep Learning | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '36:14',
+            url: 'https://www.youtube.com/watch?v=Lu2bruOHN6g',
+            topicTag: 'Perceptron, Weights and biases'
+          },
+          {
+            id: 'vid-03-3',
+            ytId: '6M1wWQmcUjQ',
+            title: 'Backpropagation in Deep Learning | Part 1 (The What & Chain Rule) | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '32:45',
+            url: 'https://www.youtube.com/watch?v=6M1wWQmcUjQ',
+            topicTag: 'Backpropagation & Chain rule in neural networks'
+          },
+          {
+            id: 'vid-03-4',
+            ytId: 'ma6hWrU-LaI',
+            title: 'Backpropagation Part 2 | The How | Complete Deep Learning Playlist | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '44:12',
+            url: 'https://www.youtube.com/watch?v=ma6hWrU-LaI',
+            topicTag: 'Forward propagation, Loss & Backpropagation math'
+          },
+          {
+            id: 'vid-03-5',
+            ytId: 'iCTTnQJn50E',
+            title: 'Optimizers in Deep Learning | Part 1 | Complete Deep Learning Course | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '22:34',
+            url: 'https://www.youtube.com/watch?v=iCTTnQJn50E',
+            topicTag: 'Gradient descent, SGD & Mini-batches'
+          },
+          {
+            id: 'vid-03-6',
+            ytId: 'N5AynalXD9g',
+            title: 'Adam Optimizer Explained in Detail with Animations | Optimizers Part 5 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '12:39',
+            url: 'https://www.youtube.com/watch?v=N5AynalXD9g',
+            topicTag: 'Adam optimizer & Learning rate'
+          },
+          {
+            id: 'vid-03-7',
+            ytId: '2AscwXePInA',
+            title: 'Batch Normalization in Deep Learning | Complete DL Course | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '43:39',
+            url: 'https://www.youtube.com/watch?v=2AscwXePInA',
+            topicTag: 'Batch normalization'
+          },
+          {
+            id: 'vid-03-8',
+            ytId: 'gyTlcHVeBjM',
+            title: 'Dropout Layer in Deep Learning | Dropouts in ANN | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '27:51',
+            url: 'https://www.youtube.com/watch?v=gyTlcHVeBjM',
+            topicTag: 'Dropout & Regularization'
+          },
+          {
+            id: 'vid-03-9',
+            ytId: 'QZsguRbcOBM',
+            title: 'PyTorch for Beginners | Introduction to PyTorch & GPU Tensors | Video 1 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '51:29',
+            url: 'https://www.youtube.com/watch?v=QZsguRbcOBM',
+            topicTag: 'PyTorch Tensors & GPU acceleration'
+          },
+          {
+            id: 'vid-03-10',
+            ytId: '6EJaHBJhwDs',
+            title: 'Building an ANN using PyTorch (nn.Module, Dataset & DataLoader) | Video 7 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '39:23',
+            url: 'https://www.youtube.com/watch?v=6EJaHBJhwDs',
+            topicTag: 'Rebuild neural network using PyTorch'
+          }
+        ],
+        projects: [
+          'Build a neural network using NumPy',
+          'Rebuild it using PyTorch',
+          'MNIST digit classifier'
+        ]
+      },
+      {
+        id: '04_deep_learning_architectures',
+        code: '04',
+        key: '04_deep_learning_architectures',
+        title: 'Deep Learning Architectures (CNN, RNN, LSTM & Seq2Seq)',
+        divisionId: 'div-dl-nlp',
+        priority: 'Learn core concepts',
+        defaultCompleted: false,
+        libraries: ['PyTorch', 'torchvision'],
+        officialLinks: [
+          { label: 'CampusX Deep Learning Playlist', url: 'https://www.youtube.com/@campusx-official/playlists' },
+          { label: 'PyTorch Official Tutorials', url: 'https://pytorch.org/tutorials/' }
+        ],
+        subdivisions: [
+          {
+            name: 'Spatial & Sequential Neural Architectures',
+            topics: [
+              'Feedforward neural networks',
+              'Convolutional neural networks (CNNs)',
+              'Recurrent neural networks (RNNs)',
+              'LSTM and GRU',
+              'Sequence modeling'
+            ]
+          },
+          {
+            name: 'Representations, Attention & Transfer Learning',
+            topics: [
+              'Word embeddings',
+              'Attention mechanism',
+              'Encoder-decoder architecture',
+              'Transfer learning',
+              'Pretrained models'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-3b1b-cnn-1',
+            ytId: 'KuXjwB4LzSA',
+            title: 'But what is a convolution? | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '23:07',
+            url: 'https://www.youtube.com/watch?v=KuXjwB4LzSA',
+            topicTag: 'Convolutional neural networks (CNNs)'
+          },
+          {
+            id: 'vid-3b1b-cnn-2',
+            ytId: 'IaSGqQa5O-M',
+            title: 'Convolutions | Why X+Y in probability is a convolution | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '16:03',
+            url: 'https://www.youtube.com/watch?v=IaSGqQa5O-M',
+            topicTag: 'Convolutional neural networks (CNNs)'
+          },
+          {
+            id: 'vid-04-1',
+            ytId: 'hDVFXf74P-U',
+            title: 'What is Convolutional Neural Network (CNN) | CNN Intuition | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '27:10',
+            url: 'https://www.youtube.com/watch?v=hDVFXf74P-U',
+            topicTag: 'Convolutional neural networks (CNNs)'
+          },
+          {
+            id: 'vid-04-2',
+            ytId: 'cgJx3GvQ5y8',
+            title: 'CNN Part 3 | Convolution Operation, Filters & Feature Maps | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '29:14',
+            url: 'https://www.youtube.com/watch?v=cgJx3GvQ5y8',
+            topicTag: 'Convolutional neural networks (CNNs)'
+          },
+          {
+            id: 'vid-04-3',
+            ytId: 'WWcgHjuKVqA',
+            title: 'What is Transfer Learning? Fine-Tuning vs Feature Extraction | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '33:53',
+            url: 'https://www.youtube.com/watch?v=WWcgHjuKVqA',
+            topicTag: 'Transfer learning & Pretrained models'
+          },
+          {
+            id: 'vid-04-4',
+            ytId: '4KpRP-YUw6c',
+            title: 'Why RNNs are Needed | RNNs Vs ANNs | RNN Part 1 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '28:40',
+            url: 'https://www.youtube.com/watch?v=4KpRP-YUw6c',
+            topicTag: 'Recurrent neural networks (RNNs) & Sequence modeling'
+          },
+          {
+            id: 'vid-04-5',
+            ytId: 'BjWqCcbusMM',
+            title: 'Recurrent Neural Network | Forward Propagation & Architecture | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '35:18',
+            url: 'https://www.youtube.com/watch?v=BjWqCcbusMM',
+            topicTag: 'Recurrent neural networks (RNNs)'
+          },
+          {
+            id: 'vid-04-6',
+            ytId: 'z7IPBg6MyrU',
+            title: 'LSTM | Long Short Term Memory | Part 1 | The What? | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '38:12',
+            url: 'https://www.youtube.com/watch?v=z7IPBg6MyrU',
+            topicTag: 'LSTM and GRU'
+          },
+          {
+            id: 'vid-04-7',
+            ytId: 'Akv3poqqwI4',
+            title: 'LSTM Architecture | Part 2 | The How? (Gates & Cell State) | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '46:05',
+            url: 'https://www.youtube.com/watch?v=Akv3poqqwI4',
+            topicTag: 'LSTM and GRU'
+          },
+          {
+            id: 'vid-04-8',
+            ytId: 'rj5V6q6-XUM',
+            title: 'Attention Mechanism in 1 Video | Seq2Seq & Encoder-Decoder Networks | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:00:05',
+            url: 'https://www.youtube.com/watch?v=rj5V6q6-XUM',
+            topicTag: 'Attention mechanism & Encoder-decoder architecture'
+          }
+        ],
+        projects: []
+      },
+      {
+        id: '05_nlp_fundamentals',
+        code: '05',
+        key: '05_nlp_fundamentals',
+        title: 'NLP Fundamentals (End-to-End NLP by CampusX)',
+        divisionId: 'div-dl-nlp',
+        priority: 'Essential for LLMs',
+        defaultCompleted: false,
+        libraries: ['NLTK', 'spaCy', 'Hugging Face Tokenizers', 'Hugging Face Transformers'],
+        officialLinks: [
+          { label: 'CampusX End-to-End NLP Course', url: 'https://www.youtube.com/watch?v=zlUpTlaxAKI' },
+          { label: 'Hugging Face LLM Course', url: 'https://huggingface.co/learn/llm-course' }
+        ],
+        subdivisions: [
+          {
+            name: 'Text Preprocessing & Classical Representations',
+            topics: [
+              'Text cleaning and normalization',
+              'Sentence and word tokenization',
+              'Vocabulary construction',
+              'Stop words and stemming - concepts',
+              'Bag of Words',
+              'TF-IDF',
+              'N-grams',
+              'One-hot encoding'
+            ]
+          },
+          {
+            name: 'Dense Embeddings & Subword Tokenization',
+            topics: [
+              'Word2Vec and GloVe',
+              'Contextual embeddings',
+              'Subword tokenization',
+              'BPE and WordPiece',
+              'Token IDs and attention masks',
+              'Padding and truncation'
+            ]
+          },
+          {
+            name: 'Language Modeling Objectives',
+            topics: [
+              'Language modeling',
+              'Next-token prediction',
+              'Perplexity'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-3b1b-wordle-info',
+            ytId: 'v68zYyaEmEA',
+            title: 'Solving Wordle using information theory (Entropy & Bits) | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '30:38',
+            url: 'https://www.youtube.com/watch?v=v68zYyaEmEA',
+            topicTag: 'Language modeling, Next-token prediction & Perplexity'
+          },
+          {
+            id: 'vid-05-1',
+            ytId: 'zlUpTlaxAKI',
+            title: 'Introduction to NLP | NLP Lecture 1 | End to End NLP Course | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '47:49',
+            url: 'https://www.youtube.com/watch?v=zlUpTlaxAKI',
+            topicTag: 'Text cleaning, normalization & NLP pipeline'
+          },
+          {
+            id: 'vid-05-2',
+            ytId: 'vo6gQz5lYRI',
+            title: 'Text Representation | NLP Lecture 4 | Bag of Words, N-Grams & Tf-Idf | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:08:22',
+            url: 'https://www.youtube.com/watch?v=vo6gQz5lYRI',
+            topicTag: 'One-hot encoding, Bag of Words, N-grams & TF-IDF'
+          },
+          {
+            id: 'vid-05-3',
+            ytId: 'DDfLc5AHoJI',
+            title: 'Word2Vec Complete Tutorial | CBOW and Skip-gram | Game of Thrones Word2Vec | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:16:01',
+            url: 'https://www.youtube.com/watch?v=DDfLc5AHoJI',
+            topicTag: 'Word2Vec and GloVe & Dense Embeddings'
+          },
+          {
+            id: 'vid-05-4',
+            ytId: 'Qbd7U9F0QQ8',
+            title: 'Text Classification | NLP Lecture 6 | End to End with Average Word2Vec | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '52:11',
+            url: 'https://www.youtube.com/watch?v=Qbd7U9F0QQ8',
+            topicTag: 'Text classification & Sentiment analysis projects'
+          },
+          {
+            id: 'vid-05-5',
+            ytId: 'zduSFxRajkE',
+            title: "Let's build the GPT Tokenizer (Subword Tokenization & Byte Pair Encoding)",
+            channel: 'Andrej Karpathy',
+            category: 'Andrej Karpathy',
+            duration: '2:13:35',
+            url: 'https://www.youtube.com/watch?v=zduSFxRajkE',
+            topicTag: 'Subword tokenization, BPE and WordPiece'
+          }
+        ],
+        projects: [
+          'Text classification',
+          'Sentiment analysis',
+          'Bangla text preprocessing pipeline'
+        ]
+      },
+      {
+        id: '06_transformers',
+        code: '06',
+        key: '06_transformers',
+        title: 'Transformers Architecture Inside Out (CampusX Series)',
+        divisionId: 'div-transformers-rag',
+        priority: 'Core LLM knowledge',
+        defaultCompleted: false,
+        libraries: ['PyTorch', 'Hugging Face Transformers'],
+        officialLinks: [
+          { label: '3Blue1Brown Transformers Visuals', url: 'https://www.3blue1brown.com/topics/neural-networks' },
+          { label: 'CampusX Transformers Series', url: 'https://www.youtube.com/watch?v=BjRVS2wTtcA' },
+          { label: 'Hugging Face LLM Course', url: 'https://huggingface.co/learn/llm-course' }
+        ],
+        subdivisions: [
+          {
+            name: 'Self-Attention & Internal Transformer Blocks',
+            topics: [
+              'Why Transformers replaced many older NLP architectures',
+              'Query, key and value vectors',
+              'Scaled dot-product attention',
+              'Self-attention',
+              'Multi-head attention',
+              'Causal attention masks',
+              'Positional encodings',
+              'Residual connections',
+              'Layer normalization',
+              'Feedforward blocks'
+            ]
+          },
+          {
+            name: 'Encoder/Decoder Variants & Generation Mechanics',
+            topics: [
+              'Encoder-only architecture',
+              'Decoder-only architecture',
+              'Encoder-decoder architecture',
+              'GPT, BERT and T5 differences',
+              'Context window',
+              'KV cache',
+              'Autoregressive generation',
+              'Transformer training objective'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-3b1b-gpt-1',
+            ytId: 'wjZofJX0v4M',
+            title: 'Transformers, the tech behind LLMs | Deep Learning Chapter 5 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '27:14',
+            url: 'https://www.youtube.com/watch?v=wjZofJX0v4M',
+            topicTag: 'Why Transformers replaced older architectures & GPT overview'
+          },
+          {
+            id: 'vid-3b1b-gpt-2',
+            ytId: 'eMlx5fFNoYc',
+            title: 'Attention in transformers, step-by-step | Deep Learning Chapter 6 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '26:10',
+            url: 'https://www.youtube.com/watch?v=eMlx5fFNoYc',
+            topicTag: 'Query, key, value vectors & Scaled dot-product attention'
+          },
+          {
+            id: 'vid-06-1',
+            ytId: 'BjRVS2wTtcA',
+            title: 'Introduction to Transformers | Transformers Part 1 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '23:21',
+            url: 'https://www.youtube.com/watch?v=BjRVS2wTtcA',
+            topicTag: 'Why Transformers replaced older NLP architectures'
+          },
+          {
+            id: 'vid-06-2',
+            ytId: 'o4ZVA0TuDRg',
+            title: 'Why is Self Attention called "Self"? | Query, Key, Value & Scaled Dot-Product | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '58:14',
+            url: 'https://www.youtube.com/watch?v=o4ZVA0TuDRg',
+            topicTag: 'Query, key and value vectors & Self-attention'
+          },
+          {
+            id: 'vid-06-3',
+            ytId: 'bX2QwpjsmuA',
+            title: 'What is Multi-Head Attention in Transformers | Multi-Head vs Self-Attention | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '45:30',
+            url: 'https://www.youtube.com/watch?v=bX2QwpjsmuA',
+            topicTag: 'Multi-head attention'
+          },
+          {
+            id: 'vid-06-4',
+            ytId: 'GeoQBNNqIbM',
+            title: 'Positional Encoding in Transformers | Deep Learning | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '49:18',
+            url: 'https://www.youtube.com/watch?v=GeoQBNNqIbM',
+            topicTag: 'Positional encodings'
+          },
+          {
+            id: 'vid-06-5',
+            ytId: 'Vs87qcdm8l0',
+            title: 'Transformer Architecture | Part 1 Encoder Architecture (Residuals, LayerNorm, FFN) | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '52:40',
+            url: 'https://www.youtube.com/watch?v=Vs87qcdm8l0',
+            topicTag: 'Encoder-only architecture, LayerNorm & Residuals'
+          },
+          {
+            id: 'vid-06-6',
+            ytId: 'DI2_hrAulYo',
+            title: 'Transformer Decoder Architecture & Masked Self-Attention | Deep Learning | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:04:15',
+            url: 'https://www.youtube.com/watch?v=DI2_hrAulYo',
+            topicTag: 'Decoder-only architecture, Causal masks & Autoregressive generation'
+          },
+          {
+            id: 'vid-06-karpathy-gpt',
+            ytId: 'kCc8FmEb1nY',
+            title: "Let's build GPT: from scratch, in code, spelled out | Andrej Karpathy",
+            channel: 'Andrej Karpathy',
+            category: 'Andrej Karpathy',
+            duration: '1:56:20',
+            url: 'https://www.youtube.com/watch?v=kCc8FmEb1nY',
+            topicTag: 'Build a small GPT-style Transformer in PyTorch'
+          }
+        ],
+        projects: [
+          'Implement self-attention using PyTorch',
+          'Build a tiny character-level language model',
+          'Build a small GPT-style Transformer'
+        ]
+      },
+      {
+        id: '07_llm_fundamentals',
+        code: '07',
+        key: '07_llm_fundamentals',
+        title: 'LLM Fundamentals & GenAI with LangChain (CampusX)',
+        divisionId: 'div-transformers-rag',
+        priority: 'Start Generative AI',
+        defaultCompleted: false,
+        libraries: ['Hugging Face Transformers', 'Hugging Face Datasets', 'Google Colab'],
+        officialLinks: [
+          { label: 'CampusX GenAI using LangChain', url: 'https://www.youtube.com/watch?v=_3ezSpJw2E8' },
+          { label: 'Hugging Face LLM Course', url: 'https://huggingface.co/learn/llm-course' },
+          { label: 'Transformers Documentation', url: 'https://huggingface.co/docs/transformers' }
+        ],
+        subdivisions: [
+          {
+            name: 'LLM Lifecycle, Scaling & Decoding Strategies',
+            topics: [
+              'What is a large language model',
+              'Pretraining vs fine-tuning',
+              'Base models vs instruction-tuned models',
+              'Tokenization and vocabulary size',
+              'Model parameters and model size',
+              'Inference and generation',
+              'Temperature',
+              'Top-k and top-p sampling',
+              'Greedy and beam decoding',
+              'Repetition penalties'
+            ]
+          },
+          {
+            name: 'Prompting, Structured Outputs, Reliability & Safety',
+            topics: [
+              'System, user and assistant messages',
+              'Prompt engineering',
+              'Few-shot prompting',
+              'Structured outputs',
+              'Function and tool calling',
+              'Hallucinations',
+              'Context limits',
+              'LLM evaluation',
+              'Responsible AI and prompt injection'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-3b1b-gpt-3',
+            ytId: '9-Jl0dxWQs8',
+            title: 'How might LLMs store facts | Deep Learning Chapter 7 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '22:43',
+            url: 'https://www.youtube.com/watch?v=9-Jl0dxWQs8',
+            topicTag: 'MLP blocks, Model parameters & Knowledge storage'
+          },
+          {
+            id: 'vid-07-1',
+            ytId: '_3ezSpJw2E8',
+            title: 'Generative AI using LangChain | GENAI for Beginners | Video 1 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '15:19',
+            url: 'https://www.youtube.com/watch?v=_3ezSpJw2E8',
+            topicTag: 'What is a large language model & GenAI ecosystem'
+          },
+          {
+            id: 'vid-07-2',
+            ytId: 'HdcLE8JuMrA',
+            title: 'LangChain Models (LLMs, ChatModels, Temperature & Open-Source HF Models) | Video 3 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:42:03',
+            url: 'https://www.youtube.com/watch?v=HdcLE8JuMrA',
+            topicTag: 'Base vs Instruction models, Temperature & Inference'
+          },
+          {
+            id: 'vid-07-3',
+            ytId: 'y5EmRr1O1h4',
+            title: 'Structured Output in LangChain (TypedDict, Pydantic & JSON Schema) | Video 5 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:08:13',
+            url: 'https://www.youtube.com/watch?v=y5EmRr1O1h4',
+            topicTag: 'Structured outputs & Prompt engineering'
+          },
+          {
+            id: 'vid-07-4',
+            ytId: 'u3b-W1NgYa4',
+            title: 'What are Runnables in LangChain | LCEL & Chain Composition | Video 8 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '54:20',
+            url: 'https://www.youtube.com/watch?v=u3b-W1NgYa4',
+            topicTag: 'System, user and assistant messages & Pipelines'
+          },
+          {
+            id: 'vid-07-5',
+            ytId: 'EzYaFF7ahKw',
+            title: 'Tool Calling in LangChain | Generative AI using LangChain | Video 17 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '58:47',
+            url: 'https://www.youtube.com/watch?v=EzYaFF7ahKw',
+            topicTag: 'Function and tool calling'
+          }
+        ],
+        projects: [
+          'Text generation with a pretrained model',
+          'Compare temperature and top-p sampling',
+          'Build a chatbot with conversation history'
+        ]
+      },
+      {
+        id: '08_embeddings_and_vector_search',
+        code: '08',
+        key: '08_embeddings_and_vector_search',
+        title: 'Embeddings & Vector Search (CampusX GenAI Series)',
+        divisionId: 'div-transformers-rag',
+        priority: 'Essential for RAG',
+        defaultCompleted: false,
+        libraries: ['Sentence Transformers', 'FAISS', 'Chroma', 'Qdrant'],
+        officialLinks: [
+          { label: 'CampusX Vector Stores Lecture', url: 'https://www.youtube.com/watch?v=k13WK0bxQP0' },
+          { label: 'Sentence Transformers (SBERT)', url: 'https://sbert.net/' },
+          { label: 'FAISS GitHub Repository', url: 'https://github.com/facebookresearch/faiss' }
+        ],
+        subdivisions: [
+          {
+            name: 'Vector Representations & Similarity Metrics',
+            topics: [
+              'Embedding models',
+              'Dense vectors',
+              'Cosine similarity',
+              'Dot-product similarity',
+              'Semantic search',
+              'Chunking strategies'
+            ]
+          },
+          {
+            name: 'Indexing, Hybrid Retrieval & Reranking',
+            topics: [
+              'Metadata filtering',
+              'Vector indexing',
+              'Approximate nearest neighbors',
+              'Hybrid search',
+              'Reranking',
+              'Embedding model evaluation'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-3b1b-vec-1',
+            ytId: 'v8VSDg_WQlA',
+            title: 'Nonsquare matrices as transformations between dimensions | Chapter 8 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '4:27',
+            url: 'https://www.youtube.com/watch?v=v8VSDg_WQlA',
+            topicTag: 'Dense vector projections & Dimensionality'
+          },
+          {
+            id: 'vid-3b1b-vec-2',
+            ytId: 'TgKwz5Ikpc8',
+            title: 'Abstract vector spaces | Chapter 16, Essence of linear algebra | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '16:46',
+            url: 'https://www.youtube.com/watch?v=TgKwz5Ikpc8',
+            topicTag: 'Embedding spaces & Semantic similarity geometry'
+          },
+          {
+            id: 'vid-08-1',
+            ytId: 'SEWS9P4ODmc',
+            title: 'Text Splitters & Chunking Strategies in LangChain | Video 11 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '59:01',
+            url: 'https://www.youtube.com/watch?v=SEWS9P4ODmc',
+            topicTag: 'Chunking strategies & Semantic splitting'
+          },
+          {
+            id: 'vid-08-2',
+            ytId: 'k13WK0bxQP0',
+            title: 'Vector Stores in LangChain (FAISS, Chroma, Embeddings & Similarity Search) | Video 12 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '55:30',
+            url: 'https://www.youtube.com/watch?v=k13WK0bxQP0',
+            topicTag: 'Embedding models, Dense vectors, Cosine similarity & Vector indexing'
+          },
+          {
+            id: 'vid-08-3',
+            ytId: 'pJdMxwXBsk0',
+            title: 'Retrievers in LangChain (MMR, Multi-Query, Metadata Filtering & Compression) | Video 13 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '51:10',
+            url: 'https://www.youtube.com/watch?v=pJdMxwXBsk0',
+            topicTag: 'Metadata filtering, Hybrid search & Reranking'
+          }
+        ],
+        projects: []
+      },
+      {
+        id: '09_rag',
+        code: '09',
+        key: '09_rag',
+        title: 'Retrieval-Augmented Generation (RAG) with CampusX',
+        divisionId: 'div-transformers-rag',
+        priority: 'Build practical LLM systems',
+        defaultCompleted: false,
+        libraries: ['LlamaIndex or LangChain', 'FAISS or Qdrant', 'FastAPI'],
+        officialLinks: [
+          { label: 'CampusX Building RAG System', url: 'https://www.youtube.com/watch?v=J5_-l7WIO_w' },
+          { label: 'LlamaIndex Documentation', url: 'https://docs.llamaindex.ai/' },
+          { label: 'LangChain Tutorials', url: 'https://python.langchain.com/docs/tutorials/' }
+        ],
+        subdivisions: [
+          {
+            name: 'Ingestion, Parsing & Vector Storage',
+            topics: [
+              'Retrieval-Augmented Generation',
+              'RAG vs fine-tuning',
+              'Document loading',
+              'PDF and web document parsing',
+              'Text chunking',
+              'Embedding generation',
+              'Vector database ingestion'
+            ]
+          },
+          {
+            name: 'Retrieval Strategies, Grounding & RAG Evaluation',
+            topics: [
+              'Top-k retrieval',
+              'Metadata-aware retrieval',
+              'Hybrid retrieval',
+              'Reranking retrieved chunks',
+              'Context construction',
+              'Citations and source grounding',
+              'RAG evaluation',
+              'Retrieval precision and recall',
+              'Reducing hallucinations',
+              'Access control and data privacy'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-09-1',
+            ytId: 'bL92ALSZ2Cg',
+            title: 'Document Loaders in LangChain (PDF, Web, CSV & Directory Loaders) | Video 10 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '56:44',
+            url: 'https://www.youtube.com/watch?v=bL92ALSZ2Cg',
+            topicTag: 'Document loading & PDF and web document parsing'
+          },
+          {
+            id: 'vid-09-2',
+            ytId: 'J5_-l7WIO_w',
+            title: 'Building an End-to-End RAG System in LangChain | Video 15 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:18:20',
+            url: 'https://www.youtube.com/watch?v=J5_-l7WIO_w',
+            topicTag: 'Retrieval-Augmented Generation, Context construction & Grounding'
+          },
+          {
+            id: 'vid-09-3',
+            ytId: 'E1qP9Xsnmik',
+            title: 'Agentic RAG & Corrective RAG (CRAG) using LangGraph | Reducing Hallucinations | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '52:40',
+            url: 'https://www.youtube.com/watch?v=E1qP9Xsnmik',
+            topicTag: 'RAG evaluation, Reranking & Reducing hallucinations'
+          },
+          {
+            id: 'vid-09-4',
+            ytId: 'K_-oWRYBkmE',
+            title: 'Advanced RAG Architecture & Production Retrieval Deep Dive | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '34:15',
+            url: 'https://www.youtube.com/watch?v=K_-oWRYBkmE',
+            topicTag: 'Hybrid retrieval, Precision/Recall & Production RAG'
+          }
+        ],
+        projects: [
+          'Chat with PDF documents',
+          'University research paper assistant',
+          'Bangla document question-answering system'
+        ]
+      },
+      {
+        id: '10_fine_tuning',
+        code: '10',
+        key: '10_fine_tuning',
+        title: 'LLM Fine-Tuning (SFT, PEFT, LoRA & QLoRA)',
+        divisionId: 'div-agents-llmops',
+        priority: 'After understanding inference and RAG',
+        defaultCompleted: false,
+        libraries: ['Transformers', 'PEFT', 'TRL', 'Datasets', 'bitsandbytes'],
+        officialLinks: [
+          { label: 'Hugging Face Fine-Tuning Guide', url: 'https://huggingface.co/docs/transformers/main/training' },
+          { label: 'PEFT Documentation', url: 'https://huggingface.co/docs/peft' },
+          { label: 'TRL (Transformer Reinforcement Learning)', url: 'https://huggingface.co/docs/trl' }
+        ],
+        subdivisions: [
+          {
+            name: 'Instruction Datasets & Supervised Fine-Tuning (SFT)',
+            topics: [
+              'Dataset preparation',
+              'Instruction datasets',
+              'Training and validation examples',
+              'Supervised fine-tuning (SFT)',
+              'Loss masking',
+              'Full fine-tuning'
+            ]
+          },
+          {
+            name: 'PEFT, Quantization & Evaluation',
+            topics: [
+              'Parameter-efficient fine-tuning (PEFT)',
+              'LoRA',
+              'QLoRA',
+              'Quantization: 8-bit and 4-bit',
+              'Training hyperparameters',
+              'Overfitting in fine-tuning',
+              'Checkpointing',
+              'Model evaluation before and after tuning',
+              'Model cards and dataset documentation'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-3b1b-lora-rank',
+            ytId: 'uQhTuRlWMxw',
+            title: 'Inverse matrices, column space, rank and null space | Chapter 7 | 3Blue1Brown',
+            channel: '3Blue1Brown',
+            category: '3Blue1Brown',
+            duration: '12:09',
+            url: 'https://www.youtube.com/watch?v=uQhTuRlWMxw',
+            topicTag: 'Matrix Rank Intuition for Low-Rank Adaptation (LoRA)'
+          },
+          {
+            id: 'vid-10-1',
+            ytId: 'WWcgHjuKVqA',
+            title: 'Fine-Tuning vs Feature Extraction | Transfer Learning Intuition | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '33:53',
+            url: 'https://www.youtube.com/watch?v=WWcgHjuKVqA',
+            topicTag: 'Full fine-tuning vs Parameter-efficient adaptation'
+          },
+          {
+            id: 'vid-10-edward-hu',
+            ytId: 'DhRoTONcyZE',
+            title: 'What is Low-Rank Adaptation (LoRA) | Explained by the Inventor (Edward Hu)',
+            channel: 'Edward Hu',
+            category: 'LLMOps & Fine-Tuning',
+            duration: '7:29',
+            url: 'https://www.youtube.com/watch?v=DhRoTONcyZE',
+            topicTag: 'Parameter-efficient fine-tuning (PEFT) & LoRA'
+          },
+          {
+            id: 'vid-10-2',
+            ytId: 't1caDsMzWBk',
+            title: 'LoRA & QLoRA Fine-tuning Explained In-Depth',
+            channel: 'Mark Hennings',
+            category: 'LLMOps & Fine-Tuning',
+            duration: '14:39',
+            url: 'https://www.youtube.com/watch?v=t1caDsMzWBk',
+            topicTag: 'PEFT, LoRA, QLoRA & 4-bit Quantization'
+          },
+          {
+            id: 'vid-10-3',
+            ytId: 'iOdFUJiB0Zc',
+            title: 'Fine Tuning LLM Models – Generative AI Course (SFT, LoRA & QLoRA with Hugging Face)',
+            channel: 'freeCodeCamp.org',
+            category: 'freeCodeCamp',
+            duration: '2:37:05',
+            url: 'https://www.youtube.com/watch?v=iOdFUJiB0Zc',
+            topicTag: 'Instruction datasets, SFT, PEFT & Evaluation'
+          }
+        ],
+        projects: [
+          'Fine-tune a small model for a specific task',
+          'Instruction-tune a Bangla assistant',
+          'Compare a base model and fine-tuned model'
+        ]
+      },
+      {
+        id: '11_ai_agents',
+        code: '11',
+        key: '11_ai_agents',
+        title: 'AI Agents, LangGraph & MCP (CampusX Agentic AI Series)',
+        divisionId: 'div-agents-llmops',
+        priority: 'After LLM application basics',
+        defaultCompleted: false,
+        libraries: ['LangGraph', 'Pydantic', 'FastAPI'],
+        officialLinks: [
+          { label: 'CampusX Agentic AI using LangGraph', url: 'https://www.youtube.com/watch?v=xdA0pGDiUPE' },
+          { label: 'LangGraph Official Docs', url: 'https://langchain-ai.github.io/langgraph/' },
+          { label: 'Model Context Protocol (MCP)', url: 'https://modelcontextprotocol.io/' }
+        ],
+        subdivisions: [
+          {
+            name: 'Agentic Loops, Memory & Tool Execution',
+            topics: [
+              'Tool calling',
+              'Structured outputs and validation',
+              'Agent loops',
+              'State and memory',
+              'Planning and task decomposition',
+              'Retries and error handling'
+            ]
+          },
+          {
+            name: 'Orchestration, Safety & Model Context Protocol (MCP)',
+            topics: [
+              'Human approval for sensitive actions',
+              'Workflow graphs',
+              'Multi-step orchestration',
+              'Agent evaluation',
+              'Prompt injection defenses',
+              'Model Context Protocol (MCP)'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-11-1',
+            ytId: 'etnLX7m2MiA',
+            title: 'Tools in LangChain | Generative AI using LangChain | Video 16 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '45:16',
+            url: 'https://www.youtube.com/watch?v=etnLX7m2MiA',
+            topicTag: 'Tool calling & Structured tool schemas'
+          },
+          {
+            id: 'vid-11-2',
+            ytId: 'gm_lQG8fYjI',
+            title: 'Building End-to-End AI Agent in LangChain | Video 18 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:12:47',
+            url: 'https://www.youtube.com/watch?v=gm_lQG8fYjI',
+            topicTag: 'Agent loops, Reasoning & Tool execution'
+          },
+          {
+            id: 'vid-11-3',
+            ytId: 'xdA0pGDiUPE',
+            title: 'Generative AI vs Agentic AI | Agentic AI using LangGraph | Video 1 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:02:44',
+            url: 'https://www.youtube.com/watch?v=xdA0pGDiUPE',
+            topicTag: 'Planning, task decomposition & Agentic systems'
+          },
+          {
+            id: 'vid-11-4',
+            ytId: '31qyMKNB2RA',
+            title: 'LangChain Vs LangGraph | Why Workflow Graphs Matter | Video 3 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '38:15',
+            url: 'https://www.youtube.com/watch?v=31qyMKNB2RA',
+            topicTag: 'Workflow graphs & Multi-step orchestration'
+          },
+          {
+            id: 'vid-11-5',
+            ytId: 'D5KhiCDM9XQ',
+            title: 'LangGraph Core Concepts (State, Nodes, Edges & Reducers) | Video 4 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '51:52',
+            url: 'https://www.youtube.com/watch?v=D5KhiCDM9XQ',
+            topicTag: 'State and memory & Workflow graphs'
+          },
+          {
+            id: 'vid-11-6',
+            ytId: 'I-dvZqTz-Wc',
+            title: 'Conditional Workflows & Routing in LangGraph | Video 7 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '44:30',
+            url: 'https://www.youtube.com/watch?v=I-dvZqTz-Wc',
+            topicTag: 'Multi-step orchestration & Retries'
+          },
+          {
+            id: 'vid-11-7',
+            ytId: 'yZGjVA4uDc4',
+            title: 'How to Build MCP Client using LangGraph | Model Context Protocol | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '56:18',
+            url: 'https://www.youtube.com/watch?v=yZGjVA4uDc4',
+            topicTag: 'Model Context Protocol (MCP)'
+          }
+        ],
+        projects: [
+          'Research assistant with source links',
+          'Agent that searches and summarizes documents',
+          'Tool-using personal productivity assistant'
+        ]
+      },
+      {
+        id: '12_multimodal_generative_ai',
+        code: '12',
+        key: '12_multimodal_generative_ai',
+        title: 'Multimodal Generative AI',
+        divisionId: 'div-agents-llmops',
+        priority: 'Optional specialization',
+        defaultCompleted: false,
+        libraries: ['Transformers', 'Diffusers', 'Whisper'],
+        officialLinks: [
+          { label: 'Hugging Face Learn Hub', url: 'https://huggingface.co/learn' },
+          { label: 'Hugging Face Diffusers Docs', url: 'https://huggingface.co/docs/diffusers' },
+          { label: 'OpenAI Whisper GitHub', url: 'https://github.com/openai/whisper' }
+        ],
+        subdivisions: [
+          {
+            name: 'Vision-Language, Diffusion & Audio Models',
+            topics: [
+              'Vision-language models',
+              'Image embeddings',
+              'Image question answering',
+              'Speech recognition',
+              'Text-to-speech',
+              'Audio-language models',
+              'Text-to-image diffusion',
+              'Image generation pipelines',
+              'Video understanding',
+              'Multimodal retrieval'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-12-1',
+            ytId: 'HdcLE8JuMrA',
+            title: 'Working with Multimodal & Open-Source Hugging Face Models | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:42:03',
+            url: 'https://www.youtube.com/watch?v=HdcLE8JuMrA',
+            topicTag: 'Vision-language models & Hugging Face pipelines'
+          },
+          {
+            id: 'vid-12-2',
+            ytId: 'BV0YUeam4y8',
+            title: 'Step-by-Step Process To Build MultiModal RAG With LangChain (PDF & Images)',
+            channel: 'Krish Naik',
+            category: 'LangChain & RAG',
+            duration: '44:59',
+            url: 'https://www.youtube.com/watch?v=BV0YUeam4y8',
+            topicTag: 'Image embeddings, Image Q&A & Multimodal retrieval'
+          },
+          {
+            id: 'vid-12-3',
+            ytId: 'P-rzgaIfZCo',
+            title: 'Exploring the NEW Hugging Face Diffusers Package | Diffusion Models w/ Python',
+            channel: 'Nicholas Renotte',
+            category: 'Hugging Face',
+            duration: '27:51',
+            url: 'https://www.youtube.com/watch?v=P-rzgaIfZCo',
+            topicTag: 'Text-to-image diffusion & Image generation pipelines'
+          }
+        ],
+        projects: []
+      },
+      {
+        id: '13_deployment_and_llm_engineering',
+        code: '13',
+        key: '13_deployment_and_llm_engineering',
+        title: 'Deployment & Production LLM Engineering (CampusX FastAPI & Docker)',
+        divisionId: 'div-agents-llmops',
+        priority: 'Essential for an LLM engineer',
+        defaultCompleted: false,
+        libraries: ['FastAPI', 'Docker', 'GitHub Actions', 'MLflow or Langfuse', 'vLLM or another suitable inference server'],
+        officialLinks: [
+          { label: 'CampusX FastAPI for ML Playlist', url: 'https://www.youtube.com/watch?v=WJKsPchji0Q' },
+          { label: 'FastAPI Official Tutorial', url: 'https://fastapi.tiangolo.com/tutorial/' },
+          { label: 'Docker Get Started Guide', url: 'https://docs.docker.com/get-started/' },
+          { label: 'Made With ML (Production ML)', url: 'https://madewithml.com/' }
+        ],
+        subdivisions: [
+          {
+            name: 'Software Engineering, APIs & Containerization',
+            topics: [
+              'Python packaging and virtual environments',
+              'REST APIs',
+              'FastAPI',
+              'Pydantic and input validation',
+              'Docker',
+              'Git and GitHub',
+              'Environment variables and secrets'
+            ]
+          },
+          {
+            name: 'High-Throughput LLM Serving & GPU Optimization',
+            topics: [
+              'GPU memory management',
+              'Model quantization',
+              'Batching and streaming',
+              'Caching',
+              'Latency and throughput',
+              'Concurrency and rate limiting'
+            ]
+          },
+          {
+            name: 'LLMOps, Observability, CI/CD & Cloud Security',
+            topics: [
+              'Authentication and authorization',
+              'Logging and monitoring',
+              'LLM observability and tracing',
+              'Prompt and response evaluation',
+              'Testing and CI/CD',
+              'Cloud deployment',
+              'Cost optimization',
+              'Data privacy and security'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-13-1',
+            ytId: 'WJKsPchji0Q',
+            title: 'What is an API? | Introduction to REST APIs | FastAPI for Machine Learning | Video 1 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '46:37',
+            url: 'https://www.youtube.com/watch?v=WJKsPchji0Q',
+            topicTag: 'REST APIs & FastAPI foundations'
+          },
+          {
+            id: 'vid-13-2',
+            ytId: 'lXx-_1r0Uss',
+            title: 'FastAPI Philosophy, Setup & Code Demo | FastAPI for ML | Video 2 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '42:07',
+            url: 'https://www.youtube.com/watch?v=lXx-_1r0Uss',
+            topicTag: 'FastAPI & Python virtual environments'
+          },
+          {
+            id: 'vid-13-3',
+            ytId: 'JdDoMi_vqbM',
+            title: 'Serving ML Models with FastAPI & Pydantic Validation | Video 7 | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '46:37',
+            url: 'https://www.youtube.com/watch?v=JdDoMi_vqbM',
+            topicTag: 'Pydantic input validation & Model serving'
+          },
+          {
+            id: 'vid-13-4',
+            ytId: 'jlLs6hfAga4',
+            title: 'FastAPI + Docker Tutorial for Beginners | How to Dockerize a FastAPI Application | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '19:22',
+            url: 'https://www.youtube.com/watch?v=jlLs6hfAga4',
+            topicTag: 'Docker containerization'
+          },
+          {
+            id: 'vid-13-5',
+            ytId: 'WuEGXlokpuQ',
+            title: 'Deploy ML & AI Projects to Cloud | Render Deployment Tutorial | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '25:27',
+            url: 'https://www.youtube.com/watch?v=WuEGXlokpuQ',
+            topicTag: 'Cloud deployment, Git and GitHub'
+          },
+          {
+            id: 'vid-13-6',
+            ytId: 'q5IF2PHA5SA',
+            title: 'vLLM: Easily Deploying & Serving LLMs',
+            channel: 'NeuralNine',
+            category: 'LLMOps & Fine-Tuning',
+            duration: '15:19',
+            url: 'https://www.youtube.com/watch?v=q5IF2PHA5SA',
+            topicTag: 'vLLM inference server, Batching & GPU memory'
+          }
+        ],
+        projects: []
+      },
+      {
+        id: '14_llm_architecture_and_research',
+        code: '14',
+        key: '14_llm_architecture_and_research',
+        title: 'Advanced LLM Architecture & AI Engineering Research',
+        divisionId: 'div-agents-llmops',
+        priority: 'Advanced',
+        defaultCompleted: false,
+        libraries: ['PyTorch Distributed', 'FlashAttention', 'DeepSpeed / FSDP', 'TRL'],
+        officialLinks: [
+          { label: 'CampusX AI Engineering Roadmap', url: 'https://www.youtube.com/watch?v=dQgsHROf8Cw' },
+          { label: 'Karpathy Zero to Hero Course', url: 'https://karpathy.ai/zero-to-hero.html' },
+          { label: 'Hugging Face LLM Course', url: 'https://huggingface.co/learn/llm-course' }
+        ],
+        subdivisions: [
+          {
+            name: 'Attention Scaling & Distributed GPU Training',
+            topics: [
+              'Transformer computational complexity',
+              'Attention and memory optimization',
+              'FlashAttention concepts',
+              'Grouped-query attention',
+              'Mixture of Experts',
+              'Distributed training fundamentals',
+              'Data parallelism',
+              'Tensor and pipeline parallelism'
+            ]
+          },
+          {
+            name: 'Data Curation, Alignment (RLHF/DPO) & Systems Research',
+            topics: [
+              'Pretraining data quality',
+              'Synthetic data generation',
+              'Preference optimization concepts',
+              'RLHF and DPO',
+              'Benchmark design',
+              'Ablation studies',
+              'Reproducibility',
+              'Research paper reading',
+              'Inference serving architecture',
+              'Model routing and fallback strategies',
+              'LLM system design'
+            ]
+          }
+        ],
+        videos: [
+          {
+            id: 'vid-14-1',
+            ytId: 'dQgsHROf8Cw',
+            title: 'AI Engineering Full Roadmap: In-Demand LLM Systems, Architecture & Curriculum | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:39:52',
+            url: 'https://www.youtube.com/watch?v=dQgsHROf8Cw',
+            topicTag: 'LLM system design, Model routing & AI Engineering'
+          },
+          {
+            id: 'vid-14-2',
+            ytId: 'DI2_hrAulYo',
+            title: 'Transformer Decoder Architecture & Attention Complexity Deep Dive | CampusX',
+            channel: 'CampusX',
+            category: 'CampusX',
+            duration: '1:04:15',
+            url: 'https://www.youtube.com/watch?v=DI2_hrAulYo',
+            topicTag: 'Transformer computational complexity & Autoregressive decoding'
+          },
+          {
+            id: 'vid-14-3',
+            ytId: 'l8pRSuU81PU',
+            title: "Let's reproduce GPT-2 (124M) - FlashAttention, Distributed Training & Optimization",
+            channel: 'Andrej Karpathy',
+            category: 'Andrej Karpathy',
+            duration: '4:01:26',
+            url: 'https://www.youtube.com/watch?v=l8pRSuU81PU',
+            topicTag: 'FlashAttention, Data parallelism & Pretraining'
+          },
+          {
+            id: 'vid-14-4',
+            ytId: '7xTGNNLPyMI',
+            title: 'Deep Dive into LLMs like ChatGPT | Architecture, Pretraining, SFT, RLHF & Thinking Models',
+            channel: 'Andrej Karpathy',
+            category: 'Andrej Karpathy',
+            duration: '3:31:24',
+            url: 'https://www.youtube.com/watch?v=7xTGNNLPyMI',
+            topicTag: 'Pretraining data quality, SFT, RLHF & Thinking Models'
+          },
+          {
+            id: 'vid-14-5',
+            ytId: 'UiX8K-xBUpE',
+            title: 'Mistral / Mixtral Explained: Sliding Window Attention, Sparse Mixture of Experts, Rolling Buffer',
+            channel: 'Umar Jamil',
+            category: 'Research & Architecture',
+            duration: '36:18',
+            url: 'https://www.youtube.com/watch?v=UiX8K-xBUpE',
+            topicTag: 'Mixture of Experts (MoE), Sliding Window & KV Cache'
+          },
+          {
+            id: 'vid-14-6',
+            ytId: 'Mn_9W1nCFLo',
+            title: 'LLaMA Explained: KV-Cache, Rotary Positional Embedding (RoPE), RMSNorm & Grouped Query Attention',
+            channel: 'Umar Jamil',
+            category: 'Research & Architecture',
+            duration: '57:52',
+            url: 'https://www.youtube.com/watch?v=Mn_9W1nCFLo',
+            topicTag: 'Grouped-query attention (GQA), KV-Cache & RoPE'
+          },
+          {
+            id: 'vid-14-7',
+            ytId: 'hvGa5Mba4c8',
+            title: 'Direct Preference Optimization (DPO) Explained: Bradley-Terry Model, Log Probabilities & Math',
+            channel: 'Umar Jamil',
+            category: 'Research & Architecture',
+            duration: '46:02',
+            url: 'https://www.youtube.com/watch?v=hvGa5Mba4c8',
+            topicTag: 'Preference optimization concepts, RLHF & DPO'
+          }
+        ],
+        projects: [
+          'Implement a small Transformer from scratch',
+          'Build an evaluated RAG pipeline',
+          'Deploy a model-backed API',
+          'Compare model quality, latency and cost'
+        ]
+      }
+    ];
+
+    // =========================================================================
+    // 2. STATE MANAGEMENT & LOCALSTORAGE PERSISTENCE
+    // =========================================================================
+    const STORAGE_KEY = 'llm_architect_roadmap_hig_v3_storage';
+
+    function createDefaultState() {
+      const completedTopics = {};
+      const watchedVideos = {};
+      const completedProjects = {};
+      const projectLinks = {};
+      const moduleNotes = {};
+      const expandedModules = {};
+
+      // 00_completed is pre-completed by default
+      const mod00 = ROADMAP_MODULES.find(m => m.id === '00_completed');
+      if (mod00) {
+        mod00.subdivisions.forEach(sub => {
+          sub.topics.forEach(topic => {
+            completedTopics[`00_completed::${topic}`] = true;
+          });
+        });
+        (mod00.videos || []).forEach(v => {
+          watchedVideos[v.id] = true;
+        });
+        (mod00.projects || []).forEach(p => {
+          completedProjects[`00_completed::${p}`] = true;
+        });
+      }
+
+      // Expand module 01 by default
+      expandedModules['01_mathematics_for_ml'] = true;
+
+      return {
+        completedTopics,
+        watchedVideos,
+        completedProjects,
+        projectLinks,
+        moduleNotes,
+        expandedModules,
+        activeView: 'roadmap',
+        selectedDivision: 'all',
+        searchQuery: '',
+        statusFilter: 'all',
+        filter3B1BOnly: false,
+        studyHoursPerWeek: 12,
+        hoursPerTopic: 2.0
+      };
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return createDefaultState();
+        const parsed = JSON.parse(raw);
+        return {
+          ...createDefaultState(),
+          ...parsed,
+          completedTopics: { ...parsed.completedTopics },
+          watchedVideos: { ...parsed.watchedVideos },
+          completedProjects: { ...parsed.completedProjects },
+          projectLinks: { ...parsed.projectLinks },
+          moduleNotes: { ...parsed.moduleNotes },
+          expandedModules: { ...parsed.expandedModules }
+        };
+      } catch (e) {
+        return createDefaultState();
+      }
+    }
+
+    let appState = loadState();
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {}
+    }
+
+    let toastTimeout = null;
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const text = document.getElementById('toast-message');
+      if (!container || !text) return;
+      text.innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-600"></span> ${msg}`;
+      container.classList.remove('opacity-0', 'translate-y-2');
+      container.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        container.classList.remove('opacity-100', 'translate-y-0');
+        container.classList.add('opacity-0', 'translate-y-2');
+      }, 2400);
+    }
+
+    // =========================================================================
+    // 3. STATS & ANALYTICS CALCULATIONS
+    // =========================================================================
+    function getModuleTopics(mod) {
+      const list = [];
+      (mod.subdivisions || []).forEach(s => {
+        (s.topics || []).forEach(t => list.push(t));
+      });
+      return list;
+    }
+
+    function getModuleStats(mod) {
+      const topics = getModuleTopics(mod);
+      const total = topics.length;
+      let done = 0;
+      topics.forEach(t => {
+        if (appState.completedTopics[`${mod.id}::${t}`]) done++;
+      });
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      let status = 'not-started';
+      if (done === total && total > 0) status = 'completed';
+      else if (done > 0) status = 'in-progress';
+      return { total, done, pct, status };
+    }
+
+    function getGlobalStats() {
+      let totalTopics = 0;
+      let doneTopics = 0;
+      let totalVideos = 0;
+      let doneVideos = 0;
+      let totalProjects = 0;
+      let doneProjects = 0;
+      let completedModulesCount = 0;
+      let total3B1BVideos = 0;
+      let done3B1BVideos = 0;
+
+      ROADMAP_MODULES.forEach(mod => {
+        const topics = getModuleTopics(mod);
+        totalTopics += topics.length;
+        topics.forEach(t => {
+          if (appState.completedTopics[`${mod.id}::${t}`]) doneTopics++;
+        });
+
+        (mod.videos || []).forEach(v => {
+          totalVideos++;
+          const is3b1b = v.channel === '3Blue1Brown';
+          if (is3b1b) total3B1BVideos++;
+          if (appState.watchedVideos[v.id]) {
+            doneVideos++;
+            if (is3b1b) done3B1BVideos++;
+          }
+        });
+
+        (mod.projects || []).forEach(p => {
+          totalProjects++;
+          if (appState.completedProjects[`${mod.id}::${p}`]) doneProjects++;
+        });
+
+        const st = getModuleStats(mod);
+        if (st.status === 'completed') completedModulesCount++;
+      });
+
+      return {
+        totalTopics,
+        doneTopics,
+        pctTopics: totalTopics > 0 ? Math.round((doneTopics / totalTopics) * 100) : 0,
+        totalVideos,
+        doneVideos,
+        total3B1BVideos,
+        done3B1BVideos,
+        totalProjects,
+        doneProjects,
+        completedModulesCount,
+        totalModulesCount: ROADMAP_MODULES.length
+      };
+    }
+
+    // =========================================================================
+    // 4. RENDERING FUNCTIONS (APPLE HIG WHITE & VIBRANT + ALIGNED VIDEO CARDS)
+    // =========================================================================
+    function renderHeaderAndHeroStats() {
+      const g = getGlobalStats();
+
+      // Top sticky header progress
+      const headerText = document.getElementById('header-progress-text');
+      const headerBar = document.getElementById('header-progress-bar');
+      if (headerText) headerText.textContent = `${g.doneTopics} / ${g.totalTopics} (${g.pctTopics}%)`;
+      if (headerBar) headerBar.style.width = `${Math.max(2, g.pctTopics)}%`;
+
+      // Hero statistics
+      const htStat = document.getElementById('hero-topics-stat');
+      const htPct = document.getElementById('hero-topics-pct');
+      if (htStat) htStat.textContent = `${g.doneTopics} / ${g.totalTopics}`;
+      if (htPct) htPct.textContent = `${g.pctTopics}% complete`;
+
+      const hmStat = document.getElementById('hero-modules-stat');
+      const hmNext = document.getElementById('hero-next-module');
+      if (hmStat) hmStat.textContent = `${g.completedModulesCount} / ${g.totalModulesCount}`;
+      if (hmNext) {
+        const nextMod = ROADMAP_MODULES.find(m => getModuleStats(m).status !== 'completed');
+        hmNext.textContent = nextMod ? `Next: ${nextMod.code} ${nextMod.title.split('(')[0].trim()}` : 'All 15 Modules Completed!';
+      }
+
+      const hvStat = document.getElementById('hero-videos-stat');
+      if (hvStat) hvStat.textContent = `${g.doneVideos} / ${g.totalVideos}`;
+
+      const b1bLabel = document.getElementById('hero-3b1b-count-label');
+      if (b1bLabel) b1bLabel.innerHTML = `<span>&pi;</span> ${g.total3B1BVideos} 3B1B Visual Lessons`;
+
+      const vHubSub = document.getElementById('video-hub-subtitle');
+      if (vHubSub) {
+        vHubSub.textContent = `${g.totalVideos} verified lessons ordered with ${g.total3B1BVideos} 3Blue1Brown visual foundations first, followed by deep technical lectures.`;
+      }
+
+      const hpStat = document.getElementById('hero-projects-stat');
+      if (hpStat) hpStat.textContent = `${g.doneProjects} / ${g.totalProjects}`;
+    }
+
+    function renderDivisionCards() {
+      const container = document.getElementById('division-cards-container');
+      const clearBtn = document.getElementById('clear-division-filter-btn');
+      if (!container) return;
+
+      if (appState.selectedDivision === 'all') {
+        clearBtn.classList.add('hidden');
+      } else {
+        clearBtn.classList.remove('hidden');
+      }
+
+      container.innerHTML = DIVISIONS.map(div => {
+        let divTotal = 0;
+        let divDone = 0;
+        div.modules.forEach(mId => {
+          const mod = ROADMAP_MODULES.find(m => m.id === mId);
+          if (mod) {
+            const st = getModuleStats(mod);
+            divTotal += st.total;
+            divDone += st.done;
+          }
+        });
+        const pct = divTotal > 0 ? Math.round((divDone / divTotal) * 100) : 0;
+        const isSelected = appState.selectedDivision === div.id;
+
+        return `
+          <button
+            type="button"
+            data-division-id="${div.id}"
+            class="division-card-btn text-left rounded-3xl p-5 border transition-all ${
+              isSelected
+                ? `${div.borderClass} bg-white shadow-lg ring-2 ${div.ringClass}`
+                : 'border-black/[0.06] bg-white/80 hover:bg-white hover:border-black/15 shadow-sm'
+            }"
+          >
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${div.badgeClass}">
+                ${div.number}
+              </span>
+              <span class="text-xs font-mono font-bold ${div.accentText}">${divDone}/${divTotal}</span>
+            </div>
+            <h4 class="text-sm font-bold text-[#1d1d1f] leading-snug line-clamp-1">${div.title}</h4>
+            <p class="text-[11px] text-[#6e6e73] mt-1 line-clamp-1">${div.subtitle}</p>
+            <div class="w-full h-1.5 bg-neutral-100 rounded-full overflow-hidden mt-3.5">
+              <div class="h-full bg-gradient-to-r ${div.barClass} transition-all duration-300" style="width: ${pct}%"></div>
+            </div>
+            <div class="flex justify-between items-center text-[10px] text-[#86868b] mt-1.5 font-medium">
+              <span>Mastery</span>
+              <span class="font-bold text-[#1d1d1f]">${pct}%</span>
+            </div>
+          </button>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.division-card-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const clickedId = btn.getAttribute('data-division-id');
+          appState.selectedDivision = appState.selectedDivision === clickedId ? 'all' : clickedId;
+          saveState();
+          renderDivisionCards();
+          renderRoadmapModules();
+        });
+      });
+    }
+
+    function renderModuleJumpBar() {
+      const bar = document.getElementById('module-jump-bar');
+      if (!bar) return;
+
+      bar.innerHTML = ROADMAP_MODULES.map(mod => {
+        const st = getModuleStats(mod);
+        const div = DIVISIONS.find(d => d.id === mod.divisionId);
+        const has3b1b = (mod.videos || []).some(v => v.channel === '3Blue1Brown');
+        let badgeStyle = 'bg-white text-[#424245] border-black/[0.08] hover:border-black/20';
+        if (st.status === 'completed') {
+          badgeStyle = 'bg-emerald-50 text-emerald-700 border-emerald-300 font-semibold shadow-sm';
+        } else if (st.status === 'in-progress') {
+          badgeStyle = `${div.badgeClass} font-semibold shadow-sm`;
+        }
+        return `
+          <button
+            type="button"
+            data-jump-mod="${mod.id}"
+            class="jump-mod-btn shrink-0 px-3 py-1.5 rounded-full text-xs border transition flex items-center gap-1.5 ${badgeStyle}"
+          >
+            <span class="font-mono font-bold">${mod.code}</span>
+            <span class="truncate max-w-[120px] font-medium hidden sm:inline">${mod.title.split('(')[0].trim()}</span>
+            ${has3b1b ? '<span class="text-[10px] text-amber-600 font-bold">&pi;</span>' : ''}
+            ${st.status === 'completed' ? '<span class="text-[11px]">&check;</span>' : ''}
+          </button>
+        `;
+      }).join('');
+
+      bar.querySelectorAll('.jump-mod-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modId = btn.getAttribute('data-jump-mod');
+          appState.expandedModules[modId] = true;
+          saveState();
+          renderRoadmapModules();
+          setTimeout(() => {
+            const el = document.getElementById(`module-card-${modId}`);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 50);
+        });
+      });
+    }
+
+    function renderRoadmapModules() {
+      const container = document.getElementById('modules-list-container');
+      if (!container) return;
+
+      const query = (appState.searchQuery || '').trim().toLowerCase();
+
+      const filteredModules = ROADMAP_MODULES.filter(mod => {
+        if (appState.selectedDivision !== 'all' && mod.divisionId !== appState.selectedDivision) {
+          return false;
+        }
+        const st = getModuleStats(mod);
+        if (appState.statusFilter !== 'all' && st.status !== appState.statusFilter) {
+          return false;
+        }
+        if (appState.filter3B1BOnly) {
+          const has3b1b = (mod.videos || []).some(v => v.channel === '3Blue1Brown');
+          if (!has3b1b) return false;
+        }
+        if (!query) return true;
+
+        const inTitle = mod.title.toLowerCase().includes(query) || mod.key.toLowerCase().includes(query);
+        const inTopics = getModuleTopics(mod).some(t => t.toLowerCase().includes(query));
+        const inLibs = (mod.libraries || []).some(l => l.toLowerCase().includes(query));
+        const inProjects = (mod.projects || []).some(p => p.toLowerCase().includes(query));
+        const inVideos = (mod.videos || []).some(
+          v => v.title.toLowerCase().includes(query) || v.channel.toLowerCase().includes(query) || v.topicTag.toLowerCase().includes(query)
+        );
+        return inTitle || inTopics || inLibs || inProjects || inVideos;
+      });
+
+      if (filteredModules.length === 0) {
+        container.innerHTML = `
+          <div class="glass-card rounded-3xl p-8 text-center space-y-3">
+            <div class="text-3xl">&telrec;</div>
+            <h3 class="text-base font-bold text-[#1d1d1f]">No modules or topics match your filters</h3>
+            <p class="text-xs text-[#6e6e73]">Try clearing the search query, turning off 3B1B-only mode, or resetting division filters.</p>
+            <button id="reset-filters-empty-btn" class="px-4 py-2 rounded-full text-xs font-semibold bg-blue-600 text-white hover:bg-blue-700 transition shadow-sm">
+              Reset Filters
+            </button>
+          </div>
+        `;
+        const resetBtn = document.getElementById('reset-filters-empty-btn');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', () => {
+            appState.selectedDivision = 'all';
+            appState.statusFilter = 'all';
+            appState.searchQuery = '';
+            appState.filter3B1BOnly = false;
+            document.getElementById('roadmap-search-input').value = '';
+            document.getElementById('status-filter-select').value = 'all';
+            update3B1BBtnState();
+            saveState();
+            renderAll();
+          });
+        }
+        return;
+      }
+
+      container.innerHTML = filteredModules.map(mod => {
+        const div = DIVISIONS.find(d => d.id === mod.divisionId);
+        const st = getModuleStats(mod);
+        const isExpanded = query ? true : !!appState.expandedModules[mod.id];
+        const noteText = appState.moduleNotes[mod.id] || '';
+        const b1bVideosCount = (mod.videos || []).filter(v => v.channel === '3Blue1Brown').length;
+
+        const statusBadge =
+          st.status === 'completed'
+            ? '<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-300">&check; Completed</span>'
+            : st.status === 'in-progress'
+            ? `<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold ${div.badgeClass}">In Progress</span>`
+            : '<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-neutral-100 text-neutral-600 border border-black/5">Not Started</span>';
+
+        const subdivisionsHtml = mod.subdivisions.map(sub => {
+          const visibleTopics = query
+            ? sub.topics.filter(t => t.toLowerCase().includes(query) || mod.title.toLowerCase().includes(query))
+            : sub.topics;
+          const topicsToRender = visibleTopics.length > 0 ? visibleTopics : sub.topics;
+          const subDone = topicsToRender.filter(t => appState.completedTopics[`${mod.id}::${t}`]).length;
+
+          return `
+            <div class="bg-white rounded-2xl p-4 border border-black/[0.06] shadow-sm space-y-2.5">
+              <div class="flex items-center justify-between gap-2 border-b border-black/[0.05] pb-2">
+                <h5 class="text-xs font-bold uppercase tracking-wider text-[#1d1d1f]">${sub.name}</h5>
+                <span class="text-xs font-mono font-semibold text-[#86868b]">${subDone} / ${topicsToRender.length}</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                ${topicsToRender.map(topic => {
+                  const key = `${mod.id}::${topic}`;
+                  const checked = !!appState.completedTopics[key];
+                  return `
+                    <label class="topic-item flex items-start gap-2.5 p-2 rounded-xl hover:bg-neutral-50 cursor-pointer transition">
+                      <input
+                        type="checkbox"
+                        data-topic-key="${key}"
+                        class="apple-checkbox topic-checkbox mt-0.5 shrink-0"
+                        ${checked ? 'checked' : ''}
+                      />
+                      <span class="text-xs sm:text-sm text-[#1d1d1f] leading-snug select-none">${topic}</span>
+                    </label>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Filter videos inside accordion if 3B1B-only toggle is active
+        const moduleVideosToDisplay = appState.filter3B1BOnly
+          ? (mod.videos || []).filter(v => v.channel === '3Blue1Brown')
+          : (mod.videos || []);
+
+        const videosHtml = moduleVideosToDisplay.map((v, idx) => {
+          const watched = !!appState.watchedVideos[v.id];
+          const is3b1b = v.channel === '3Blue1Brown';
+          const stepNumber = String(idx + 1).padStart(2, '0');
+          return `
+            <div class="video-card-equal bg-white rounded-2xl p-4 border ${
+              watched
+                ? 'border-emerald-300 bg-emerald-50/20'
+                : is3b1b
+                ? 'border-amber-300 shadow-sm'
+                : 'border-black/[0.06]'
+            } gap-3 shadow-sm hover:shadow-md transition">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-1.5 min-w-0">
+                    <span class="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-neutral-100 text-[#6e6e73] border border-black/5 shrink-0">#${stepNumber}</span>
+                    ${
+                      is3b1b
+                        ? '<span class="b1b-badge inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold truncate"><span>&pi;</span> 3Blue1Brown Visual</span>'
+                        : `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-neutral-100 text-[#1d1d1f] border border-black/5 truncate">&blacktriangleright; ${v.channel}</span>`
+                    }
+                  </div>
+                  <span class="text-[11px] font-mono text-[#86868b] font-medium shrink-0">${v.duration}</span>
+                </div>
+                <h6 class="video-title-fixed text-xs sm:text-sm font-semibold text-[#1d1d1f] leading-snug" title="${v.title}">${v.title}</h6>
+                <div class="text-[11px] text-[#86868b] truncate">Topic: <span class="text-[#424245] font-medium">${v.topicTag}</span></div>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-2.5 border-t border-black/[0.05] mt-auto">
+                <div class="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    data-watch-video="${v.id}"
+                    class="watch-video-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition inline-flex items-center gap-1 whitespace-nowrap"
+                  >
+                    <span>&blacktriangleright;</span> Play
+                  </button>
+                  <a
+                    href="${v.url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="px-2.5 py-1.5 rounded-full text-xs font-medium text-neutral-600 hover:text-black bg-neutral-100 hover:bg-neutral-200 border border-black/5 transition inline-flex items-center gap-1 whitespace-nowrap"
+                    title="Watch directly on YouTube"
+                  >
+                    YouTube &nearr;
+                  </a>
+                </div>
+                <button
+                  type="button"
+                  data-toggle-watched="${v.id}"
+                  class="toggle-watched-btn px-2.5 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap ${
+                    watched
+                      ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                      : 'bg-neutral-100 hover:bg-neutral-200 text-[#1d1d1f]'
+                  }"
+                >
+                  ${watched ? '&check; Watched' : 'Mark Watched'}
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        const projectsHtml = (mod.projects || []).map(p => {
+          const pKey = `${mod.id}::${p}`;
+          const pDone = !!appState.completedProjects[pKey];
+          const isBangla = p.toLowerCase().includes('bangla');
+          return `
+            <div class="video-card-equal bg-white rounded-2xl p-4 border ${pDone ? 'border-emerald-300 bg-emerald-50/20' : 'border-black/[0.06]'} gap-3 shadow-sm">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-orange-600">Capstone Project</span>
+                  ${isBangla ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Bangla NLP</span>' : ''}
+                </div>
+                <p class="text-xs sm:text-sm font-semibold text-[#1d1d1f]">${p}</p>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-2.5 border-t border-black/[0.05] mt-auto">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    data-project-key="${pKey}"
+                    class="project-checkbox apple-checkbox"
+                    ${pDone ? 'checked' : ''}
+                  />
+                  <span class="text-xs font-semibold text-[#1d1d1f]">${pDone ? 'Done' : 'Mark Done'}</span>
+                </label>
+                <input
+                  type="url"
+                  data-project-link="${pKey}"
+                  value="${appState.projectLinks[pKey] || ''}"
+                  placeholder="GitHub repo URL..."
+                  class="project-link-input bg-[#f5f5f7] border border-black/10 rounded-full px-3 py-1 text-xs text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none focus:border-blue-500 w-40 sm:w-48"
+                />
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div
+            id="module-card-${mod.id}"
+            class="glass-card rounded-3xl overflow-hidden border border-black/[0.06] transition-all"
+          >
+            <!-- Module Card Accordion Header -->
+            <div
+              data-toggle-mod="${mod.id}"
+              class="module-header-btn p-5 sm:p-6 cursor-pointer hover:bg-neutral-50/80 transition flex flex-wrap items-center justify-between gap-4 select-none"
+            >
+              <div class="flex items-center gap-3.5 min-w-0">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr ${div.barClass} flex items-center justify-center text-white font-mono font-bold text-sm shadow-md shrink-0">
+                  ${mod.code}
+                </div>
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${div.badgeClass}">
+                      ${div.number}
+                    </span>
+                    <span class="text-xs font-bold text-[#86868b] font-mono">${st.done}/${st.total} topics</span>
+                    ${
+                      b1bVideosCount > 0
+                        ? `<span class="b1b-badge inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold"><span>&pi;</span> ${b1bVideosCount} 3B1B Lessons</span>`
+                        : ''
+                    }
+                  </div>
+                  <h3 class="text-base sm:text-lg font-bold text-[#1d1d1f] tracking-tight mt-1 truncate">
+                    ${mod.title}
+                  </h3>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 shrink-0">
+                <div class="hidden md:block w-28 h-2 bg-neutral-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r ${div.barClass}" style="width: ${st.pct}%"></div>
+                </div>
+                <span class="text-xs font-mono font-bold text-[#1d1d1f] w-10 text-right">${st.pct}%</span>
+                ${statusBadge}
+                <div class="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center text-xs font-bold text-neutral-500 transition-transform ${isExpanded ? 'rotate-180' : ''}">
+                  &dtrif;
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion Expandable Body -->
+            <div class="${isExpanded ? 'block' : 'hidden'} border-t border-black/[0.06] p-5 sm:p-6 space-y-6 bg-neutral-50/40">
+              <!-- Libraries & Official Reference Links & Quick Actions -->
+              <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-black/[0.05] shadow-sm">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-xs font-semibold text-[#86868b]">Core Tech Stack:</span>
+                  ${(mod.libraries || []).map(lib => `
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-neutral-100 text-[#1d1d1f] border border-black/5">
+                      ${lib}
+                    </span>
+                  `).join('')}
+                </div>
+                <div class="flex items-center gap-2">
+                  <button
+                    type="button"
+                    data-mark-module-done="${mod.id}"
+                    class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition"
+                  >
+                    &check; Complete All Topics
+                  </button>
+                  <button
+                    type="button"
+                    data-reset-module="${mod.id}"
+                    class="px-3 py-1 rounded-full text-xs font-semibold bg-neutral-100 text-neutral-600 hover:bg-neutral-200 transition"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+
+              <!-- Official Links -->
+              ${
+                (mod.officialLinks || []).length > 0
+                  ? `
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-semibold text-[#86868b]">Essential Links:</span>
+                    ${mod.officialLinks.map(l => `
+                      <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/60 hover:bg-blue-100 transition flex items-center gap-1 shadow-sm">
+                        ${l.label} &nearr;
+                      </a>
+                    `).join('')}
+                  </div>
+                  `
+                  : ''
+              }
+
+              <!-- Curriculum Subdivisions & Topics Checklist -->
+              <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-[#1d1d1f]">Module Curriculum Topics</h4>
+                <div class="space-y-3">
+                  ${subdivisionsHtml}
+                </div>
+              </div>
+
+              <!-- Curated Video Lessons Subsection -->
+              ${
+                moduleVideosToDisplay.length > 0
+                  ? `
+                  <div class="space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <div class="flex flex-wrap items-center gap-2">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-[#1d1d1f]">Curated Video Tutorials (Recommended Order)</h4>
+                        ${
+                          b1bVideosCount > 0
+                            ? `<span class="b1b-badge px-2 py-0.5 rounded-full text-[10px] font-semibold">&pi; Visual Intuition First (${b1bVideosCount} 3B1B)</span>`
+                            : ''
+                        }
+                      </div>
+                      <span class="text-xs text-[#86868b] font-medium">${moduleVideosToDisplay.length} videos</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 items-stretch">
+                      ${videosHtml}
+                    </div>
+                  </div>
+                  `
+                  : ''
+              }
+
+              <!-- Capstone Projects Subsection -->
+              ${
+                (mod.projects || []).length > 0
+                  ? `
+                  <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-orange-600">Module Hands-on Capstone Projects</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 items-stretch">
+                      ${projectsHtml}
+                    </div>
+                  </div>
+                  `
+                  : ''
+              }
+
+              <!-- Module Personal Study Notes Scratchpad -->
+              <div class="space-y-2 bg-white rounded-2xl p-4 border border-black/[0.06] shadow-sm">
+                <div class="flex items-center justify-between">
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-[#1d1d1f]">Personal Study Notes &amp; Insights</h4>
+                  <span class="text-[11px] text-emerald-600 font-semibold" id="note-status-${mod.id}">Autosaved to device</span>
+                </div>
+                <textarea
+                  data-mod-note="${mod.id}"
+                  rows="2"
+                  placeholder="Record your architectural takeaways, tricky formulas, research links, or reminders for this module..."
+                  class="w-full bg-[#f5f5f7] border border-black/10 rounded-xl p-3 text-xs sm:text-sm text-[#1d1d1f] focus:outline-none focus:border-blue-500 focus:bg-white transition"
+                >${noteText}</textarea>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Attach event listeners inside modules list
+      // 1. Accordion Toggle
+      container.querySelectorAll('.module-header-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const mId = btn.getAttribute('data-toggle-mod');
+          appState.expandedModules[mId] = !appState.expandedModules[mId];
+          saveState();
+          renderRoadmapModules();
+        });
+      });
+
+      // 2. Mark entire module done
+      container.querySelectorAll('[data-mark-module-done]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const mId = btn.getAttribute('data-mark-module-done');
+          const mod = ROADMAP_MODULES.find(m => m.id === mId);
+          if (mod) {
+            getModuleTopics(mod).forEach(t => {
+              appState.completedTopics[`${mod.id}::${t}`] = true;
+            });
+            saveState();
+            renderAll();
+            showToast(`Marked all topics in Module ${mod.code} as completed!`);
+          }
+        });
+      });
+
+      // 3. Reset module topics
+      container.querySelectorAll('[data-reset-module]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const mId = btn.getAttribute('data-reset-module');
+          const mod = ROADMAP_MODULES.find(m => m.id === mId);
+          if (mod) {
+            getModuleTopics(mod).forEach(t => {
+              delete appState.completedTopics[`${mod.id}::${t}`];
+            });
+            saveState();
+            renderAll();
+            showToast(`Reset topics for Module ${mod.code}`);
+          }
+        });
+      });
+
+      // 4. Topic checkbox toggle
+      container.querySelectorAll('.topic-checkbox').forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          e.stopPropagation();
+          const key = cb.getAttribute('data-topic-key');
+          if (cb.checked) {
+            appState.completedTopics[key] = true;
+            showToast('Topic completed &check;');
+          } else {
+            delete appState.completedTopics[key];
+          }
+          saveState();
+          renderHeaderAndHeroStats();
+          renderDivisionCards();
+          renderModuleJumpBar();
+          const modId = key.split('::')[0];
+          const mod = ROADMAP_MODULES.find(m => m.id === modId);
+          if (mod) {
+            const st = getModuleStats(mod);
+            const card = document.getElementById(`module-card-${modId}`);
+            if (card) {
+              const pBar = card.querySelector('.bg-gradient-to-r');
+              if (pBar) pBar.style.width = `${st.pct}%`;
+            }
+          }
+        });
+      });
+
+      // 5. Watch video button
+      container.querySelectorAll('.watch-video-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const vidId = btn.getAttribute('data-watch-video');
+          openVideoModal(vidId);
+        });
+      });
+
+      // 6. Toggle watched button
+      container.querySelectorAll('.toggle-watched-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const vidId = btn.getAttribute('data-toggle-watched');
+          appState.watchedVideos[vidId] = !appState.watchedVideos[vidId];
+          saveState();
+          renderRoadmapModules();
+          renderHeaderAndHeroStats();
+          showToast(appState.watchedVideos[vidId] ? 'Video marked as watched!' : 'Video unwatched');
+        });
+      });
+
+      // 7. Project checkbox toggle
+      container.querySelectorAll('.project-checkbox').forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          e.stopPropagation();
+          const key = cb.getAttribute('data-project-key');
+          if (cb.checked) {
+            appState.completedProjects[key] = true;
+            showToast('Project completed &check;');
+          } else {
+            delete appState.completedProjects[key];
+          }
+          saveState();
+          renderHeaderAndHeroStats();
+        });
+      });
+
+      // 8. Project repo link input
+      container.querySelectorAll('.project-link-input').forEach(inp => {
+        inp.addEventListener('input', (e) => {
+          const key = inp.getAttribute('data-project-link');
+          appState.projectLinks[key] = inp.value.trim();
+          saveState();
+        });
+      });
+
+      // 9. Notes textarea autosave
+      container.querySelectorAll('[data-mod-note]').forEach(ta => {
+        ta.addEventListener('input', (e) => {
+          const modId = ta.getAttribute('data-mod-note');
+          appState.moduleNotes[modId] = ta.value;
+          saveState();
+          const st = document.getElementById(`note-status-${modId}`);
+          if (st) st.textContent = 'Saved to device';
+        });
+      });
+    }
+
+    function renderVideoHub() {
+      const grid = document.getElementById('video-hub-grid');
+      if (!grid) return;
+
+      const searchVal = (document.getElementById('video-search-input').value || '').trim().toLowerCase();
+      const channelFilter = document.getElementById('video-channel-filter').value;
+      const watchFilter = document.getElementById('video-watch-filter').value;
+
+      const allVideos = [];
+      ROADMAP_MODULES.forEach(mod => {
+        (mod.videos || []).forEach((v, idx) => {
+          allVideos.push({
+            ...v,
+            modCode: mod.code,
+            modTitle: mod.title,
+            divisionId: mod.divisionId,
+            modStep: idx + 1
+          });
+        });
+      });
+
+      const filtered = allVideos.filter(v => {
+        if (channelFilter === '3Blue1Brown' && v.channel !== '3Blue1Brown') return false;
+        if (channelFilter === 'CampusX' && v.channel !== 'CampusX') return false;
+        if (channelFilter === 'others' && (v.channel === '3Blue1Brown' || v.channel === 'CampusX')) return false;
+
+        const isWatched = !!appState.watchedVideos[v.id];
+        if (watchFilter === 'watched' && !isWatched) return false;
+        if (watchFilter === 'unwatched' && isWatched) return false;
+
+        if (!searchVal) return true;
+        return (
+          v.title.toLowerCase().includes(searchVal) ||
+          v.channel.toLowerCase().includes(searchVal) ||
+          v.topicTag.toLowerCase().includes(searchVal) ||
+          v.modTitle.toLowerCase().includes(searchVal)
+        );
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full p-8 text-center text-[#86868b] bg-white rounded-3xl border border-black/[0.06]">
+            No videos match your search or filter criteria.
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(v => {
+        const watched = !!appState.watchedVideos[v.id];
+        const is3b1b = v.channel === '3Blue1Brown';
+        const stepStr = String(v.modStep).padStart(2, '0');
+        return `
+          <div class="video-card-equal glass-card rounded-3xl border ${
+            watched ? 'border-emerald-300 bg-emerald-50/20' : is3b1b ? 'border-amber-300 shadow-sm' : 'border-black/[0.06]'
+          } p-4 gap-3 shadow-sm hover:shadow-md transition">
+            <div class="space-y-2.5">
+              <div
+                data-hub-watch="${v.id}"
+                class="relative w-full aspect-video rounded-2xl overflow-hidden bg-neutral-900 shadow-inner group cursor-pointer"
+              >
+                <img
+                  src="https://img.youtube.com/vi/${v.ytId}/hqdefault.jpg"
+                  alt="${v.title}"
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='https://placehold.co/640x360/0f172a/f8fafc?text=Video+Lesson';"
+                  class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                />
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition flex items-center justify-center">
+                  <div class="w-11 h-11 rounded-full bg-white/90 text-[#1d1d1f] flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                    &blacktriangleright;
+                  </div>
+                </div>
+                <div class="absolute bottom-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-black/80 text-white backdrop-blur-sm">
+                  ${v.duration}
+                </div>
+                ${
+                  watched
+                    ? '<div class="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white shadow">&check; Watched</div>'
+                    : ''
+                }
+              </div>
+              <div class="flex items-center justify-between gap-2">
+                ${
+                  is3b1b
+                    ? '<span class="b1b-badge inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold truncate"><span>&pi;</span> 3Blue1Brown</span>'
+                    : `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-neutral-100 text-[#1d1d1f] border border-black/5 truncate">${v.channel}</span>`
+                }
+                <span class="text-[11px] font-mono text-[#86868b] font-semibold shrink-0">Mod ${v.modCode} &bull; #${stepStr}</span>
+              </div>
+              <h5 class="video-title-fixed text-xs sm:text-sm font-bold text-[#1d1d1f] leading-snug" title="${v.title}">${v.title}</h5>
+              <div class="text-[11px] text-[#86868b] truncate">Covers: <span class="text-[#424245] font-medium">${v.topicTag}</span></div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2.5 border-t border-black/[0.05] mt-auto">
+              <div class="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  data-hub-watch="${v.id}"
+                  class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition inline-flex items-center gap-1 whitespace-nowrap"
+                >
+                  <span>&blacktriangleright;</span> Play
+                </button>
+                <a
+                  href="${v.url}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-2.5 py-1.5 rounded-full text-xs font-medium text-neutral-600 hover:text-black bg-neutral-100 hover:bg-neutral-200 border border-black/5 transition inline-flex items-center gap-1 whitespace-nowrap"
+                  title="Watch on YouTube"
+                >
+                  YouTube &nearr;
+                </a>
+              </div>
+              <button
+                type="button"
+                data-hub-toggle="${v.id}"
+                class="px-3 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap ${
+                  watched
+                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                    : 'bg-neutral-100 hover:bg-neutral-200 text-[#1d1d1f]'
+                }"
+              >
+                ${watched ? '&check; Watched' : 'Mark Watched'}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      grid.querySelectorAll('[data-hub-watch]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          openVideoModal(btn.getAttribute('data-hub-watch'));
+        });
+      });
+
+      grid.querySelectorAll('[data-hub-toggle]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-hub-toggle');
+          appState.watchedVideos[id] = !appState.watchedVideos[id];
+          saveState();
+          renderVideoHub();
+          renderHeaderAndHeroStats();
+        });
+      });
+    }
+
+    function renderProjectsLab() {
+      const container = document.getElementById('projects-grid-container');
+      if (!container) return;
+
+      const filterVal = document.getElementById('project-filter-select').value;
+      const allProjects = [];
+
+      ROADMAP_MODULES.forEach(mod => {
+        (mod.projects || []).forEach(p => {
+          allProjects.push({
+            key: `${mod.id}::${p}`,
+            title: p,
+            modId: mod.id,
+            modCode: mod.code,
+            modTitle: mod.title,
+            libraries: mod.libraries || [],
+            isBangla: p.toLowerCase().includes('bangla')
+          });
+        });
+      });
+
+      const filtered = allProjects.filter(item => {
+        const done = !!appState.completedProjects[item.key];
+        if (filterVal === 'completed' && !done) return false;
+        if (filterVal === 'pending' && done) return false;
+        if (filterVal === 'bangla' && !item.isBangla) return false;
+        return true;
+      });
+
+      container.innerHTML = filtered.map(item => {
+        const done = !!appState.completedProjects[item.key];
+        const repoUrl = appState.projectLinks[item.key] || '';
+        return `
+          <div class="video-card-equal glass-card rounded-3xl p-5 border ${
+            done ? 'border-emerald-300 bg-emerald-50/20' : 'border-black/[0.06]'
+          } gap-3 shadow-sm hover:shadow-md transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-neutral-100 text-[#1d1d1f] border border-black/5">
+                  Module ${item.modCode}
+                </span>
+                ${item.isBangla ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800">Bangla NLP</span>' : ''}
+              </div>
+              <h5 class="text-sm font-bold text-[#1d1d1f] leading-snug">${item.title}</h5>
+              <div class="flex flex-wrap gap-1 pt-1">
+                ${item.libraries.slice(0, 3).map(l => `<span class="px-2 py-0.5 rounded-full text-[10px] bg-neutral-100 text-neutral-600">${l}</span>`).join('')}
+              </div>
+            </div>
+            <div class="space-y-2 pt-2.5 border-t border-black/[0.05] mt-auto">
+              <div class="flex items-center justify-between">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    data-lab-key="${item.key}"
+                    class="lab-checkbox apple-checkbox"
+                    ${done ? 'checked' : ''}
+                  />
+                  <span class="text-xs font-semibold text-[#1d1d1f]">${done ? '&check; Completed' : 'Mark Completed'}</span>
+                </label>
+              </div>
+              <input
+                type="url"
+                data-lab-repo="${item.key}"
+                value="${repoUrl}"
+                placeholder="Link GitHub repo (auto-saves)..."
+                class="w-full bg-[#f5f5f7] border border-black/10 rounded-full px-3 py-1.5 text-xs text-[#1d1d1f] placeholder:text-[#86868b] focus:outline-none focus:border-blue-500 shadow-inner"
+              />
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.lab-checkbox').forEach(cb => {
+        cb.addEventListener('change', () => {
+          const key = cb.getAttribute('data-lab-key');
+          if (cb.checked) {
+            appState.completedProjects[key] = true;
+            showToast('Project completed &check;');
+          } else {
+            delete appState.completedProjects[key];
+          }
+          saveState();
+          renderHeaderAndHeroStats();
+          renderProjectsLab();
+        });
+      });
+
+      container.querySelectorAll('[data-lab-repo]').forEach(inp => {
+        inp.addEventListener('input', () => {
+          const key = inp.getAttribute('data-lab-repo');
+          appState.projectLinks[key] = inp.value.trim();
+          saveState();
+        });
+      });
+    }
+
+    let moduleChartInstance = null;
+    let trackChartInstance = null;
+
+    function renderStudyPlannerAndCharts() {
+      const hoursPerWeek = parseFloat(appState.studyHoursPerWeek) || 12;
+      const hoursPerTopic = parseFloat(appState.hoursPerTopic) || 2.0;
+
+      const disp = document.getElementById('study-hours-display');
+      if (disp) disp.textContent = `${hoursPerWeek} hrs / week`;
+      const slider = document.getElementById('study-hours-slider');
+      if (slider) slider.value = hoursPerWeek;
+      const modeSelect = document.getElementById('hours-per-topic-select');
+      if (modeSelect) modeSelect.value = hoursPerTopic.toFixed(1);
+
+      const g = getGlobalStats();
+      const remainingTopics = Math.max(0, g.totalTopics - g.doneTopics);
+      const remainingProjects = Math.max(0, g.totalProjects - g.doneProjects);
+      const totalRemainingHours = Math.round(remainingTopics * hoursPerTopic + remainingProjects * 4);
+      const weeksNeeded = Math.max(1, Math.ceil(totalRemainingHours / hoursPerWeek));
+
+      const targetDate = new Date();
+      targetDate.setDate(targetDate.getDate() + weeksNeeded * 7);
+      const formattedTarget = targetDate.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+
+      const summaryCards = document.getElementById('planner-summary-cards');
+      if (summaryCards) {
+        summaryCards.innerHTML = `
+          <div class="bg-neutral-50 p-4 rounded-2xl border border-black/[0.05]">
+            <div class="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider">Est. Hours Left</div>
+            <div class="text-xl font-bold text-[#1d1d1f] font-mono mt-0.5">${totalRemainingHours} hrs</div>
+            <div class="text-[11px] text-[#6e6e73] mt-0.5">${remainingTopics} topics + ${remainingProjects} projects</div>
+          </div>
+          <div class="bg-neutral-50 p-4 rounded-2xl border border-black/[0.05]">
+            <div class="text-[11px] font-semibold text-[#86868b] uppercase tracking-wider">Projected Graduation</div>
+            <div class="text-base font-bold text-blue-600 font-mono mt-0.5">${formattedTarget}</div>
+            <div class="text-[11px] text-[#6e6e73] mt-0.5">In ~${weeksNeeded} study weeks</div>
+          </div>
+        `;
+      }
+
+      let cumulativeHours = 0;
+      const scheduleHtml = ROADMAP_MODULES.map(mod => {
+        const st = getModuleStats(mod);
+        const remTopics = st.total - st.done;
+        const modHours = Math.round(remTopics * hoursPerTopic + (mod.projects ? mod.projects.length * 2 : 0));
+        const startWeek = Math.floor(cumulativeHours / hoursPerWeek) + 1;
+        cumulativeHours += modHours;
+        const endWeek = Math.max(startWeek, Math.ceil(cumulativeHours / hoursPerWeek));
+
+        return `
+          <div class="flex items-center justify-between p-3 rounded-2xl bg-neutral-50 border border-black/[0.05] text-xs">
+            <div class="truncate pr-2">
+              <span class="font-mono font-bold text-blue-600">${mod.code}</span>
+              <span class="text-[#1d1d1f] font-semibold ml-1.5">${mod.title}</span>
+            </div>
+            <div class="shrink-0 font-mono text-[11px] ${
+              remTopics === 0 ? 'text-emerald-600 font-semibold' : 'text-[#86868b]'
+            }">
+              ${remTopics === 0 ? '&check; Completed' : `Wk ${startWeek}-${endWeek} (${modHours}h)`}
+            </div>
+          </div>
+        `;
+      }).join('');
+      const scheduleList = document.getElementById('planner-schedule-list');
+      if (scheduleList) scheduleList.innerHTML = scheduleHtml;
+
+      // Chart.js render in clean Apple HIG theme
+      if (typeof Chart !== 'undefined') {
+        const modLabels = ROADMAP_MODULES.map(m => m.code);
+        const modData = ROADMAP_MODULES.map(m => getModuleStats(m).pct);
+        const modColors = ROADMAP_MODULES.map(m => {
+          const div = DIVISIONS.find(d => d.id === m.divisionId);
+          return div ? div.hex : '#0071e3';
+        });
+
+        const ctx1 = document.getElementById('moduleProgressChart');
+        if (ctx1) {
+          if (moduleChartInstance) moduleChartInstance.destroy();
+          moduleChartInstance = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+              labels: modLabels,
+              datasets: [
+                {
+                  label: 'Completion %',
+                  data: modData,
+                  backgroundColor: modColors,
+                  borderRadius: 8,
+                  borderWidth: 0
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  max: 100,
+                  ticks: {
+                    color: '#86868b',
+                    font: { family: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif', size: 11 },
+                    callback: v => v + '%'
+                  },
+                  grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                },
+                x: {
+                  ticks: {
+                    color: '#1d1d1f',
+                    font: { family: 'JetBrains Mono, SF Mono, monospace', size: 11, weight: '600' }
+                  },
+                  grid: { display: false }
+                }
+              },
+              plugins: {
+                legend: { display: false },
+                tooltip: {
+                  backgroundColor: 'rgba(29, 29, 31, 0.95)',
+                  titleFont: { size: 12, weight: 'bold' },
+                  bodyFont: { size: 12 },
+                  padding: 10,
+                  cornerRadius: 10
+                }
+              }
+            }
+          });
+        }
+
+        const trackLabels = DIVISIONS.map(d => d.number + ': ' + d.title.split('&')[0].trim());
+        const trackDone = [];
+        const trackRem = [];
+        DIVISIONS.forEach(div => {
+          let tot = 0;
+          let dn = 0;
+          div.modules.forEach(mId => {
+            const mod = ROADMAP_MODULES.find(m => m.id === mId);
+            if (mod) {
+              const st = getModuleStats(mod);
+              tot += st.total;
+              dn += st.done;
+            }
+          });
+          trackDone.push(dn);
+          trackRem.push(Math.max(0, tot - dn));
+        });
+
+        const ctx2 = document.getElementById('trackProgressChart');
+        if (ctx2) {
+          if (trackChartInstance) trackChartInstance.destroy();
+          trackChartInstance = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+              labels: trackLabels,
+              datasets: [
+                {
+                  label: 'Completed Topics',
+                  data: trackDone,
+                  backgroundColor: '#0071e3',
+                  borderRadius: 6
+                },
+                {
+                  label: 'Remaining Topics',
+                  data: trackRem,
+                  backgroundColor: '#e5e5ea',
+                  borderRadius: 6
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                x: {
+                  stacked: true,
+                  ticks: {
+                    color: '#1d1d1f',
+                    font: { family: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif', size: 11, weight: '600' }
+                  },
+                  grid: { display: false }
+                },
+                y: {
+                  stacked: true,
+                  ticks: {
+                    color: '#86868b',
+                    font: { family: 'JetBrains Mono, monospace', size: 11 }
+                  },
+                  grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                }
+              },
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                  labels: {
+                    color: '#1d1d1f',
+                    boxWidth: 12,
+                    boxHeight: 12,
+                    font: { family: '-apple-system, BlinkMacSystemFont, sans-serif', size: 12 }
+                  }
+                },
+                tooltip: {
+                  backgroundColor: 'rgba(29, 29, 31, 0.95)',
+                  padding: 10,
+                  cornerRadius: 10
+                }
+              }
+            }
+          });
+        }
+      }
+    }
+
+    // =========================================================================
+    // 5. IN-APP VIDEO MODAL LOGIC
+    // =========================================================================
+    let currentModalVideoId = null;
+
+    function findVideoById(vidId) {
+      for (const m of ROADMAP_MODULES) {
+        for (const v of (m.videos || [])) {
+          if (v.id === vidId) return { ...v, modTitle: m.title };
+        }
+      }
+      return null;
+    }
+
+    function openVideoModal(vidId) {
+      const v = findVideoById(vidId);
+      if (!v) return;
+      currentModalVideoId = vidId;
+
+      document.getElementById('modal-video-channel').textContent = v.channel;
+      document.getElementById('modal-video-title').textContent = v.title;
+      document.getElementById('modal-external-link').href = v.url;
+      const fallbackLink = document.getElementById('modal-fallback-link');
+      if (fallbackLink) fallbackLink.href = v.url;
+      document.getElementById('modal-video-topics').textContent = `Covers: ${v.topicTag} (${v.modTitle})`;
+      document.getElementById('modal-video-iframe').src = `https://www.youtube.com/embed/${v.ytId}?autoplay=1&rel=0`;
+
+      updateModalWatchedButton();
+      document.getElementById('video-modal').classList.remove('hidden');
+    }
+
+    function updateModalWatchedButton() {
+      const btn = document.getElementById('modal-mark-watched-btn');
+      if (!btn || !currentModalVideoId) return;
+      const watched = !!appState.watchedVideos[currentModalVideoId];
+      btn.innerHTML = watched ? '&check; Watched' : 'Mark Watched';
+      if (watched) {
+        btn.classList.add('bg-emerald-100', 'text-emerald-800', 'border-emerald-300');
+        btn.classList.remove('bg-blue-50', 'text-blue-700', 'border-blue-200');
+      } else {
+        btn.classList.remove('bg-emerald-100', 'text-emerald-800', 'border-emerald-300');
+        btn.classList.add('bg-blue-50', 'text-blue-700', 'border-blue-200');
+      }
+    }
+
+    function closeVideoModal() {
+      const modal = document.getElementById('video-modal');
+      const iframe = document.getElementById('modal-video-iframe');
+      if (iframe) iframe.src = 'about:blank';
+      if (modal) modal.classList.add('hidden');
+      currentModalVideoId = null;
+    }
+
+    // =========================================================================
+    // 6. NAVIGATION & VIEW SWITCHING
+    // =========================================================================
+    function switchView(viewName) {
+      appState.activeView = viewName;
+      saveState();
+
+      document.querySelectorAll('.segmented-btn').forEach(btn => {
+        if (btn.getAttribute('data-view') === viewName) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      ['roadmap', 'videos', 'projects', 'planner'].forEach(v => {
+        const section = document.getElementById(`view-${v}`);
+        if (section) {
+          if (v === viewName) {
+            section.classList.remove('hidden');
+          } else {
+            section.classList.add('hidden');
+          }
+        }
+      });
+
+      if (viewName === 'roadmap') renderRoadmapModules();
+      if (viewName === 'videos') renderVideoHub();
+      if (viewName === 'projects') renderProjectsLab();
+      if (viewName === 'planner') renderStudyPlannerAndCharts();
+    }
+
+    function update3B1BBtnState() {
+      const btn = document.getElementById('filter-3b1b-toggle-btn');
+      if (!btn) return;
+      if (appState.filter3B1BOnly) {
+        btn.classList.add('bg-amber-500', 'text-white', 'border-amber-600', 'shadow-md');
+        btn.classList.remove('bg-amber-50', 'text-amber-900', 'border-amber-300');
+        btn.innerHTML = '<span>&pi;</span> 3B1B Active (&times;)';
+      } else {
+        btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-600', 'shadow-md');
+        btn.classList.add('bg-amber-50', 'text-amber-900', 'border-amber-300');
+        btn.innerHTML = '<span>&pi;</span> 3B1B Lessons Only';
+      }
+    }
+
+    function renderAll() {
+      renderHeaderAndHeroStats();
+      renderDivisionCards();
+      renderModuleJumpBar();
+      renderRoadmapModules();
+      if (appState.activeView === 'videos') renderVideoHub();
+      if (appState.activeView === 'projects') renderProjectsLab();
+      if (appState.activeView === 'planner') renderStudyPlannerAndCharts();
+    }
+
+    // =========================================================================
+    // 7. INITIALIZATION & EVENT BINDINGS
+    // =========================================================================
+    function initRoadmapStudio() {
+      // Nav buttons
+      document.querySelectorAll('.segmented-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchView(btn.getAttribute('data-view'));
+        });
+      });
+
+      // Clear Division filter
+      const clearDivBtn = document.getElementById('clear-division-filter-btn');
+      if (clearDivBtn) {
+        clearDivBtn.addEventListener('click', () => {
+          appState.selectedDivision = 'all';
+          saveState();
+          renderDivisionCards();
+          renderRoadmapModules();
+        });
+      }
+
+      // Search input
+      const searchInput = document.getElementById('roadmap-search-input');
+      const clearSearchBtn = document.getElementById('clear-search-btn');
+      if (searchInput) {
+        searchInput.value = appState.searchQuery || '';
+        searchInput.addEventListener('input', (e) => {
+          appState.searchQuery = e.target.value;
+          if (appState.searchQuery) {
+            clearSearchBtn.classList.remove('hidden');
+          } else {
+            clearSearchBtn.classList.add('hidden');
+          }
+          saveState();
+          renderRoadmapModules();
+        });
+      }
+      if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', () => {
+          appState.searchQuery = '';
+          searchInput.value = '';
+          clearSearchBtn.classList.add('hidden');
+          saveState();
+          renderRoadmapModules();
+        });
+      }
+
+      // Status filter
+      const statusSelect = document.getElementById('status-filter-select');
+      if (statusSelect) {
+        statusSelect.value = appState.statusFilter || 'all';
+        statusSelect.addEventListener('change', (e) => {
+          appState.statusFilter = e.target.value;
+          saveState();
+          renderRoadmapModules();
+        });
+      }
+
+      // 3Blue1Brown Spotlight toggle
+      const btn3b1b = document.getElementById('filter-3b1b-toggle-btn');
+      if (btn3b1b) {
+        btn3b1b.addEventListener('click', () => {
+          appState.filter3B1BOnly = !appState.filter3B1BOnly;
+          update3B1BBtnState();
+          saveState();
+          renderRoadmapModules();
+          showToast(appState.filter3B1BOnly ? 'Showing 3Blue1Brown visual lessons' : 'Showing all lessons');
+        });
+      }
+
+      const hero3b1bBtn = document.getElementById('hero-3b1b-quickbtn');
+      if (hero3b1bBtn) {
+        hero3b1bBtn.addEventListener('click', () => {
+          document.getElementById('tab-btn-roadmap').click();
+          appState.filter3B1BOnly = true;
+          update3B1BBtnState();
+          saveState();
+          renderRoadmapModules();
+          showToast('Filtered to 3Blue1Brown visual lessons &pi;');
+        });
+      }
+
+      // Expand / Collapse all
+      const expBtn = document.getElementById('expand-all-btn');
+      if (expBtn) {
+        expBtn.addEventListener('click', () => {
+          ROADMAP_MODULES.forEach(m => {
+            appState.expandedModules[m.id] = true;
+          });
+          saveState();
+          renderRoadmapModules();
+        });
+      }
+      const colBtn = document.getElementById('collapse-all-btn');
+      if (colBtn) {
+        colBtn.addEventListener('click', () => {
+          appState.expandedModules = {};
+          saveState();
+          renderRoadmapModules();
+        });
+      }
+
+      // Video hub filters
+      const vSearch = document.getElementById('video-search-input');
+      const vChan = document.getElementById('video-channel-filter');
+      const vWatch = document.getElementById('video-watch-filter');
+      if (vSearch) vSearch.addEventListener('input', renderVideoHub);
+      if (vChan) vChan.addEventListener('change', renderVideoHub);
+      if (vWatch) vWatch.addEventListener('change', renderVideoHub);
+
+      // Projects filter
+      const pFilter = document.getElementById('project-filter-select');
+      if (pFilter) pFilter.addEventListener('change', renderProjectsLab);
+
+      // Study planner controls
+      const sSlider = document.getElementById('study-hours-slider');
+      if (sSlider) {
+        sSlider.addEventListener('input', (e) => {
+          appState.studyHoursPerWeek = parseInt(e.target.value, 10);
+          saveState();
+          renderStudyPlannerAndCharts();
+        });
+      }
+      const hSelect = document.getElementById('hours-per-topic-select');
+      if (hSelect) {
+        hSelect.addEventListener('change', (e) => {
+          appState.hoursPerTopic = parseFloat(e.target.value);
+          saveState();
+          renderStudyPlannerAndCharts();
+        });
+      }
+
+      // Modal close & keyboard handler
+      const closeVidBtn = document.getElementById('close-video-modal-btn');
+      if (closeVidBtn) closeVidBtn.addEventListener('click', closeVideoModal);
+      const vidModal = document.getElementById('video-modal');
+      if (vidModal) {
+        vidModal.addEventListener('click', (e) => {
+          if (e.target === vidModal) closeVideoModal();
+        });
+      }
+      const modalWatchBtn = document.getElementById('modal-mark-watched-btn');
+      if (modalWatchBtn) {
+        modalWatchBtn.addEventListener('click', () => {
+          if (!currentModalVideoId) return;
+          appState.watchedVideos[currentModalVideoId] = !appState.watchedVideos[currentModalVideoId];
+          saveState();
+          updateModalWatchedButton();
+          renderHeaderAndHeroStats();
+          if (appState.activeView === 'roadmap') renderRoadmapModules();
+          if (appState.activeView === 'videos') renderVideoHub();
+          showToast(appState.watchedVideos[currentModalVideoId] ? 'Video marked watched!' : 'Video unwatched');
+        });
+      }
+
+      // Backup & export modal (without browser alert/confirm)
+      const openBackupBtn = document.getElementById('open-backup-modal-btn');
+      const closeBackupBtn = document.getElementById('close-backup-modal-btn');
+      const backupModal = document.getElementById('backup-modal');
+      const backupTextarea = document.getElementById('backup-json-textarea');
+      const backupFeedback = document.getElementById('backup-inline-feedback');
+
+      if (openBackupBtn && backupModal && backupTextarea) {
+        openBackupBtn.addEventListener('click', () => {
+          backupTextarea.value = JSON.stringify(appState, null, 2);
+          if (backupFeedback) backupFeedback.classList.add('hidden');
+          backupModal.classList.remove('hidden');
+        });
+      }
+      if (closeBackupBtn && backupModal) {
+        closeBackupBtn.addEventListener('click', () => {
+          backupModal.classList.add('hidden');
+        });
+      }
+      const copyJsonBtn = document.getElementById('copy-json-btn');
+      if (copyJsonBtn && backupTextarea) {
+        copyJsonBtn.addEventListener('click', () => {
+          backupTextarea.select();
+          document.execCommand('copy');
+          showToast('JSON backup copied to clipboard!');
+        });
+      }
+      const importJsonBtn = document.getElementById('import-json-btn');
+      if (importJsonBtn && backupTextarea) {
+        importJsonBtn.addEventListener('click', () => {
+          try {
+            const parsed = JSON.parse(backupTextarea.value);
+            appState = { ...createDefaultState(), ...parsed };
+            saveState();
+            backupModal.classList.add('hidden');
+            renderAll();
+            showToast('Progress successfully restored!');
+          } catch (e) {
+            if (backupFeedback) {
+              backupFeedback.textContent = 'Invalid JSON data. Please check your backup syntax and try again.';
+              backupFeedback.classList.remove('hidden');
+            }
+          }
+        });
+      }
+
+      let resetArmed = false;
+      const resetBtn = document.getElementById('reset-progress-btn');
+      if (resetBtn && backupModal) {
+        resetBtn.addEventListener('click', () => {
+          if (!resetArmed) {
+            resetArmed = true;
+            resetBtn.textContent = 'Click Again to Confirm Reset';
+            setTimeout(() => {
+              resetArmed = false;
+              resetBtn.textContent = 'Reset to Default';
+            }, 3500);
+            return;
+          }
+          resetArmed = false;
+          resetBtn.textContent = 'Reset to Default';
+          localStorage.removeItem(STORAGE_KEY);
+          appState = createDefaultState();
+          saveState();
+          backupModal.classList.add('hidden');
+          renderAll();
+          showToast('Progress reset to default.');
+        });
+      }
+
+      // Global keyboard shortcut '/' to search and 'Esc' to close modal
+      document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          if (appState.activeView !== 'roadmap') switchView('roadmap');
+          setTimeout(() => {
+            const inp = document.getElementById('roadmap-search-input');
+            if (inp) inp.focus();
+          }, 50);
+        }
+        if (e.key === 'Escape') {
+          closeVideoModal();
+          if (backupModal) backupModal.classList.add('hidden');
+        }
+      });
+
+      update3B1BBtnState();
+      switchView(appState.activeView || 'roadmap');
+      renderAll();
+    }
+
+    document.addEventListener('DOMContentLoaded', initRoadmapStudio);
+  </script>
+</body>
+</html>
